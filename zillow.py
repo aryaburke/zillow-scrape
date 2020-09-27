@@ -117,6 +117,16 @@ def get_data_from_json(raw_json_data):
         print("Invalid json")
         return None
 
+def unique(list):
+    # intilize a null list
+    unique_list = []
+
+    # traverse for all elements
+    for x in list:
+        # check if exists in unique_list or not
+        if x not in unique_list:
+            unique_list.append(x)
+    return unique_list
 
 def parse(zipcode, filter=None):
     final_data = []
@@ -139,12 +149,13 @@ def parse(zipcode, filter=None):
           # identified as type 2 page
           raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
           parsed_data = get_data_from_json(raw_json_data)
-          if parsed_data not in final_data:
-            final_data.append(parsed_data)
+          #if parsed_data not in final_data:
+          final_data.append(parsed_data)
     # The result is array of array, flatten it
     flattened = [val for sublist in final_data for val in sublist]
-    print("Properties count: {0}".format(len(flattened)))
-    return flattened
+    uniq = unique(flattened)
+    print("Properties count: {0}".format(len(uniq)))
+    return uniq
 
 if __name__ == "__main__":
     # Reading arguments
