@@ -49,7 +49,7 @@ def write_data_to_csv(data):
     # saving scraped data to csv.
 
     with open("properties-%s.csv" % (zipcode), 'wb') as csvfile:
-        fieldnames = ['title', 'address', 'city', 'state', 'postal_code', 'price', 'zestimate', 'zestimate_rent', 'facts and features', 'real estate provider', 'url']
+        fieldnames = ['title', 'address', 'city', 'state', 'postal_code', 'price', 'zestimate', 'zestimate_rent', 'price_to_rent_ratio', 'facts and features', 'real estate provider', 'url']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for row in data:
@@ -97,6 +97,10 @@ def get_data_from_json(raw_json_data):
             property_url = properties.get('detailUrl')
             title = properties.get('statusText')
             zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
+            price_to_rent_ratio = ""
+
+            if zestimate_rent and zestimate:
+              price_to_rent_ratio = round(zestimate_rent / zestimate * 100, 2)
 
             data = {'address': address,
                     'city': city,
@@ -105,6 +109,7 @@ def get_data_from_json(raw_json_data):
                     'price': price,
                     'zestimate': zestimate,
                     'zestimate_rent': zestimate_rent,
+                    'price_to_rent_ratio': price_to_rent_ratio,
                     'facts and features': info,
                     'real estate provider': broker,
                     'url': property_url,
