@@ -1,41 +1,70 @@
-title,address,city,state,postal_code,price,zestimate,facts and features,real estate provider,url
-House for sale,,Washington,DC,20003,"$1,099,000",1144688,"4 bds, 4.0 ba ,2043 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/106-4th-St-SE-Washington-DC-20003/415690_zpid/
-House for sale,,Washington,DC,20003,"$1,148,000",1051663,"3 bds, 2.0 ba ,2572 sqft",REMAX Platinum Realty,https://www.zillow.com/homedetails/1304-A-St-SE-Washington-DC-20003/423909_zpid/
-House for sale,,Washington,DC,20003,"$812,500",762242,"4 bds, 2.0 ba ,1442 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/1009-15th-St-SE-Washington-DC-20003/425682_zpid/
-House for sale,,Washington,DC,20003,"$868,500",888367,"2 bds, 2.0 ba ,1064 sqft",Compass,https://www.zillow.com/homedetails/825-E-St-SE-Washington-DC-20003/419488_zpid/
-Townhouse for sale,,Washington,DC,20003,"$799,000",810986,"3 bds, 2.0 ba ,1320 sqft",Keller Williams Capitol Properties,https://www.zillow.com/homedetails/426-15th-St-SE-Washington-DC-20003/426050_zpid/
-House for sale,,Washington,DC,20003,"$1,449,000",1483676,"5 bds, 4.0 ba ,2624 sqft",Compass,https://www.zillow.com/homedetails/120-Kentucky-Ave-SE-Washington-DC-20003/422533_zpid/
-New construction,,Washington,DC,20003,"$1,595,000",,"3 bds, 4.0 ba ,2419 sqft",Monument Sotheby's International Realty,https://www.zillow.com/homedetails/1311-E-St-SE-28-Washington-DC-20003/2077726236_zpid/
-Townhouse for sale,,Washington,DC,20003,"$850,000",866123,"4 bds, 3.0 ba ,1766 sqft",Keller Williams Capitol Properties,https://www.zillow.com/homedetails/536-13th-St-SE-Washington-DC-20003/424233_zpid/
-Condo for sale,,Washington,DC,20003,"$600,000",600004,"2 bds, 2.0 ba ,837 sqft","McEnearney Associates, Inc.",https://www.zillow.com/homedetails/1500-Pennsylvania-Ave-SE-208-Washington-DC-20003/247165176_zpid/
-Condo for sale,,Washington,DC,20003,"$840,000",840146,"2 bds, 2.0 ba ,1188 sqft",Compass,https://www.zillow.com/homedetails/1025-1st-St-SE-APT-1105-Washington-DC-20003/108432817_zpid/
-Condo for sale,,Washington,DC,20003,"$124,414",124415,"1 bds, 1.0 ba ,691 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/1209-G-St-SE-UNIT-4-Washington-DC-20003/183132254_zpid/
-Condo for sale,,Washington,DC,20003,"$385,000",388849,"1 bds, 1.0 ba ,619 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/909-E-St-SE-APT-2-Washington-DC-20003/420155_zpid/
-House for sale,,Washington,DC,20003,"$1,449,900",1466957,"4 bds, 4.0 ba ,2744 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/1333-Massachusetts-Ave-SE-Washington-DC-20003/423998_zpid/
-Condo for sale,,Washington,DC,20003,"$385,000",,"1 bds, 1.0 ba ,650 sqft",Compass,https://www.zillow.com/homedetails/1000-New-Jersey-Ave-SE-APT-1005-Washington-DC-20003/2099133807_zpid/
-House for sale,,Washington,DC,20003,"$769,900",784463,"4 bds, 2.0 ba ,1612 sqft","Cap City Realty, Inc.",https://www.zillow.com/homedetails/1507-Pennsylvania-Ave-SE-Washington-DC-20003/426245_zpid/
-Townhouse for sale,,Washington,DC,20003,"$699,950",715755,"2 bds, 1.0 ba ,970 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/1420-S-Carolina-Ave-SE-Washington-DC-20003/425343_zpid/
-Condo for sale,,Washington,DC,20003,"$369,000",319971,"2 bds, 2.0 ba ,748 sqft",Redfin Corp,https://www.zillow.com/homedetails/1524-Independence-Ave-SE-APT-1-Washington-DC-20003/88806206_zpid/
-House for sale,,Washington,DC,20003,"$1,728,500",1725326,"6 bds, 4.0 ba ,3570 sqft",Compass,https://www.zillow.com/homedetails/801-Independence-Ave-SE-Washington-DC-20003/419341_zpid/
-House for sale,,Washington,DC,20003,"$575,000",625004,"2 bds, 2.0 ba ,1060 sqft","SourceOne Realty Group, LLC.",https://www.zillow.com/homedetails/1201-Potomac-Ave-SE-1-Washington-DC-20003/2078628112_zpid/
-House for sale,,Washington,DC,20003,"$765,000",799006,"3 bds, 3.0 ba ,1476 sqft","SourceOne Realty Group, LLC.",https://www.zillow.com/homedetails/1201-Potomac-Ave-SE-2-Washington-DC-20003/2078628146_zpid/
-New construction,,Washington,DC,20003,"$599,900",,"1 bds, 2.0 ba ,781 sqft",McWilliams/Ballard Inc.,https://www.zillow.com/homedetails/37-L-St-SE-401-Washington-DC-20003/2077723243_zpid/
-House for sale,,Washington,DC,20003,"$674,997",676059,"2 bds, 2.0 ba ,912 sqft",TTR Sotheby's International Realty,https://www.zillow.com/homedetails/706-4th-St-SE-Washington-DC-20003/415894_zpid/
-Condo for sale,,Washington,DC,20003,"$369,000",374228,"1 bds, 1.0 ba ,568 sqft",Compass,https://www.zillow.com/homedetails/414-Seward-Sq-SE-APT-202-Washington-DC-20003/415756_zpid/
-House for sale,,Washington,DC,20003,"$1,849,000",1870382,"5 bds, 5.0 ba ,3521 sqft","Washington Fine Properties, LLC",https://www.zillow.com/homedetails/1008-E-Capitol-St-NE-Washington-DC-20003/295435559_zpid/
-House for sale,,Washington,DC,20003,"$899,000",900605,"3 bds, 2.0 ba ,1335 sqft",,https://www.zillow.com/homedetails/922-4th-St-SE-Washington-DC-20003/108406245_zpid/
-Condo for sale,,Washington,DC,20003,"$664,000",664005,"3 bds, 2.0 ba ,1244 sqft",RLAH Real Estate,https://www.zillow.com/homedetails/1391-Pennsylvania-Ave-SE-UNIT-309-Washington-DC-20003/82293649_zpid/
-House for sale,,Washington,DC,20003,"$924,900",938113,"3 bds, 3.0 ba ,1860 sqft","WDC Realty Group, LLC",https://www.zillow.com/homedetails/518-11th-St-SE-Washington-DC-20003/421703_zpid/
-House for sale,,Washington,DC,20003,"$799,999",810321,"3 bds, 3.0 ba ,1600 sqft","Pearson Smith Realty, LLC",https://www.zillow.com/homedetails/1014-13th-St-SE-Washington-DC-20003/424416_zpid/
-Condo for sale,,Washington,DC,20003,"$325,000",325003,"1 bds, 1.0 ba ,464 sqft",RLAH Real Estate,https://www.zillow.com/homedetails/101-N-Carolina-Ave-SE-APT-106-Washington-DC-20003/68081125_zpid/
-House for sale,,Washington,DC,20003,"$1,699,000",,"3 bds, 4.0 ba ,1443 sqft","4J Real Estate, LLC",https://www.zillow.com/homedetails/230-E-Capitol-St-NE-Washington-DC-20003/2077756553_zpid/
-House for sale,,Washington,DC,20003,"$1,125,000",1125007,"4 bds, 4.0 ba ,1895 sqft",Compass,https://www.zillow.com/homedetails/1029-5th-St-SE-Washington-DC-20003/92415186_zpid/
-Condo for sale,,Washington,DC,20003,"$599,000",619004,"2 bds, 1.0 ba ,879 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/1020-Pennsylvania-Ave-SE-APT-204-Washington-DC-20003/88808983_zpid/
-Condo for sale,,Washington,DC,20003,"$239,900",239901,"0 bds, 1.0 ba ,394 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/414-Seward-Sq-SE-APT-303-Washington-DC-20003/415763_zpid/
-Multi-family home for sale,,Washington,DC,20003,"$4,750,000",4628870,"7 bds, 5.0 ba ,5286 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/712-E-Capitol-St-NE-Washington-DC-20003/58754829_zpid/
-Condo for sale,,Washington,DC,20003,"$549,900",549905,"2 bds, 2.0 ba ,1029 sqft",RLAH Real Estate,https://www.zillow.com/homedetails/1391-Pennsylvania-Ave-SE-UNIT-M09-Washington-DC-20003/82296565_zpid/
-New construction,,Washington,DC,20003,"$549,900",549900,"2 bds, 2.0 ba ,None sqft",Compass,https://www.zillow.com/homedetails/1519-K-St-SE-201-Washington-DC-20003/2077822548_zpid/
-House for sale,,Washington,DC,20003,"$1,049,000",1027088,"4 bds, 4.0 ba ,1782 sqft","RE/MAX Distinctive Real Estate, Inc.",https://www.zillow.com/homedetails/121-15th-St-SE-Washington-DC-20003/425292_zpid/
-House for sale,,Washington,DC,20003,"$685,900",687045,"2 bds, 2.0 ba ,840 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/1617-Potomac-Ave-SE-Washington-DC-20003/426731_zpid/
-Condo for sale,,Washington,DC,20003,"$549,900",554899,"2 bds, 2.0 ba ,858 sqft",Compass,https://www.zillow.com/homedetails/254-15th-St-SE-UNIT-3-Washington-DC-20003/247164635_zpid/
-Condo for sale,,Washington,DC,20003,"$397,500",402632,"1 bds, 1.0 ba ,649 sqft","RE/MAX Gateway, LLC",https://www.zillow.com/homedetails/233-Kentucky-Ave-SE-APT-2-Washington-DC-20003/422766_zpid/
+title,address,city,state,postal_code,price,zestimate,zestimate_rent,facts and features,real estate provider,url
+House for sale,,Washington,DC,20003,"$1,099,000",1224931,2650,"4 bds, 4.0 ba ,2043 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/106-4th-St-SE-Washington-DC-20003/415690_zpid/
+House for sale,,Washington,DC,20003,"$868,500",888367,3250,"2 bds, 2.0 ba ,1064 sqft",Compass,https://www.zillow.com/homedetails/825-E-St-SE-Washington-DC-20003/419488_zpid/
+House for sale,,Washington,DC,20003,"$1,449,000",1408623,2727,"5 bds, 4.0 ba ,2624 sqft",Compass,https://www.zillow.com/homedetails/120-Kentucky-Ave-SE-Washington-DC-20003/422533_zpid/
+House for sale,,Washington,DC,20003,"$812,500",827984,2800,"4 bds, 2.0 ba ,1442 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/1009-15th-St-SE-Washington-DC-20003/425682_zpid/
+House for sale,,Washington,DC,20003,"$1,148,000",1151922,3600,"3 bds, 2.0 ba ,2572 sqft",REMAX Platinum Realty,https://www.zillow.com/homedetails/1304-A-St-SE-Washington-DC-20003/423909_zpid/
+Townhouse for sale,,Washington,DC,20003,"$850,000",866193,3100,"4 bds, 3.0 ba ,1766 sqft",Keller Williams Capitol Properties,https://www.zillow.com/homedetails/536-13th-St-SE-Washington-DC-20003/424233_zpid/
+House for sale,,Washington,DC,20003,"$769,900",785237,2800,"4 bds, 2.0 ba ,1612 sqft","Cap City Realty, Inc.",https://www.zillow.com/homedetails/1507-Pennsylvania-Ave-SE-Washington-DC-20003/426245_zpid/
+House for sale,,Washington,DC,20003,"$575,000",625003,,"2 bds, 2.0 ba ,1060 sqft","SourceOne Realty Group, LLC.",https://www.zillow.com/homedetails/1201-Potomac-Ave-SE-1-Washington-DC-20003/2078628112_zpid/
+Townhouse for sale,,Washington,DC,20003,"$939,000",948254,3800,"4 bds, 4.0 ba ,2220 sqft","Long & Foster Real Estate, Inc.",https://www.zillow.com/homedetails/547-11th-St-SE-Washington-DC-20003/420992_zpid/
+House for sale,,Washington,DC,20003,"$1,449,900",1449903,3400,"4 bds, 4.0 ba ,2744 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/1333-Massachusetts-Ave-SE-Washington-DC-20003/423998_zpid/
+House for sale,,Washington,DC,20003,"$674,997",675463,3000,"2 bds, 2.0 ba ,912 sqft",TTR Sotheby's International Realty,https://www.zillow.com/homedetails/706-4th-St-SE-Washington-DC-20003/415894_zpid/
+House for sale,,Washington,DC,20003,"$799,999",828210,3400,"3 bds, 3.0 ba ,1600 sqft","Pearson Smith Realty, LLC",https://www.zillow.com/homedetails/1014-13th-St-SE-Washington-DC-20003/424416_zpid/
+Condo for sale,,Washington,DC,20003,"$369,000",322019,2200,"2 bds, 2.0 ba ,748 sqft",Redfin Corp,https://www.zillow.com/homedetails/1524-Independence-Ave-SE-APT-1-Washington-DC-20003/88806206_zpid/
+Condo for sale,,Washington,DC,20003,"$549,900",552035,2399,"2 bds, 2.0 ba ,858 sqft",Compass,https://www.zillow.com/homedetails/254-15th-St-SE-UNIT-3-Washington-DC-20003/247164635_zpid/
+New construction,,Washington,DC,20003,"$1,595,000",,,"3 bds, 4.0 ba ,2419 sqft",Monument Sotheby's International Realty,https://www.zillow.com/homedetails/1311-E-St-SE-28-Washington-DC-20003/2077726236_zpid/
+House for sale,,Washington,DC,20003,"$924,900",943008,4000,"3 bds, 3.0 ba ,1860 sqft","WDC Realty Group, LLC",https://www.zillow.com/homedetails/518-11th-St-SE-Washington-DC-20003/421703_zpid/
+Condo for sale,,Washington,DC,20003,"$664,000",664006,3050,"3 bds, 2.0 ba ,1244 sqft",RLAH Real Estate,https://www.zillow.com/homedetails/1391-Pennsylvania-Ave-SE-UNIT-309-Washington-DC-20003/82293649_zpid/
+House for sale,,Washington,DC,20003,"$1,125,000",1125007,4700,"4 bds, 4.0 ba ,1895 sqft",Compass,https://www.zillow.com/homedetails/1029-5th-St-SE-Washington-DC-20003/92415186_zpid/
+House for sale,,Washington,DC,20003,"$899,000",901331,3200,"3 bds, 2.0 ba ,1335 sqft",,https://www.zillow.com/homedetails/922-4th-St-SE-Washington-DC-20003/108406245_zpid/
+House for sale,,Washington,DC,20003,"$765,000",799004,,"3 bds, 3.0 ba ,1476 sqft","SourceOne Realty Group, LLC.",https://www.zillow.com/homedetails/1201-Potomac-Ave-SE-2-Washington-DC-20003/2078628146_zpid/
+House for sale,,Washington,DC,20003,"$1,049,000",,2975,"4 bds, 4.0 ba ,1782 sqft","RE/MAX Distinctive Real Estate, Inc.",https://www.zillow.com/homedetails/121-15th-St-SE-Washington-DC-20003/425292_zpid/
+House for sale,,Washington,DC,20003,"$1,728,500",1728164,3480,"6 bds, 4.0 ba ,3570 sqft",Compass,https://www.zillow.com/homedetails/801-Independence-Ave-SE-Washington-DC-20003/419341_zpid/
+House for sale,,Washington,DC,20003,"$685,900",687009,2600,"2 bds, 2.0 ba ,840 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/1617-Potomac-Ave-SE-Washington-DC-20003/426731_zpid/
+Condo for sale,,Washington,DC,20003,"$600,000",600004,2400,"2 bds, 2.0 ba ,837 sqft","McEnearney Associates, Inc.",https://www.zillow.com/homedetails/1500-Pennsylvania-Ave-SE-208-Washington-DC-20003/247165176_zpid/
+House for sale,,Washington,DC,20003,"$1,849,000",1874034,2900,"5 bds, 5.0 ba ,3521 sqft","Washington Fine Properties, LLC",https://www.zillow.com/homedetails/1008-E-Capitol-St-NE-Washington-DC-20003/295435559_zpid/
+Condo for sale,,Washington,DC,20003,"$840,000",732972,2999,"2 bds, 2.0 ba ,1188 sqft",Compass,https://www.zillow.com/homedetails/1025-1st-St-SE-APT-1105-Washington-DC-20003/108432817_zpid/
+Condo for sale,,Washington,DC,20003,"$549,900",549903,2899,"2 bds, 2.0 ba ,1029 sqft",RLAH Real Estate,https://www.zillow.com/homedetails/1391-Pennsylvania-Ave-SE-UNIT-M09-Washington-DC-20003/82296565_zpid/
+Multi-family home for sale,,Washington,DC,20003,"$4,750,000",4649288,2450,"7 bds, 5.0 ba ,5286 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/712-E-Capitol-St-NE-Washington-DC-20003/58754829_zpid/
+New construction,,Washington,DC,20003,"$699,900",699900,,"2 bds, 2.0 ba ,None sqft",Compass,https://www.zillow.com/homedetails/1519-K-St-SE-302-Washington-DC-20003/2077823391_zpid/
+House for sale,,Washington,DC,20003,"$1,290,000",1290011,5138,"2 bds, 3.0 ba ,1700 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/514-4th-St-SE-APT-100-Washington-DC-20003/250253072_zpid/
+Condo for sale,,Washington,DC,20003,"$559,508",559509,,"2 bds, 2.0 ba ,1027 sqft",Compass,https://www.zillow.com/homedetails/1000-New-Jersey-Ave-SE-APT-106-Washington-DC-20003/2081102805_zpid/
+Condo for sale,,Washington,DC,20003,"$749,500",742880,3000,"2 bds, 3.0 ba ,1417 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/600-Kentucky-Ave-SE-UNIT-B-Washington-DC-20003/71739939_zpid/
+House for sale,,Washington,DC,20003,"$1,699,000",1699001,,"3 bds, 4.0 ba ,1443 sqft","4J Real Estate, LLC",https://www.zillow.com/homedetails/230-E-Capitol-St-NE-Washington-DC-20003/2077756553_zpid/
+New construction,,Washington,DC,20003,"$549,900",549900,,"2 bds, 2.0 ba ,None sqft",Compass,https://www.zillow.com/homedetails/1519-K-St-SE-201-Washington-DC-20003/2077822548_zpid/
+Condo for sale,,Washington,DC,20003,"$749,000",749015,,"2 bds, 2.0 ba ,1039 sqft",,https://www.zillow.com/homedetails/1345-K-St-SE-UNIT-302-Washington-DC-20003/311112112_zpid/
+Multi-family home for sale,,Washington,DC,20003,"$1,839,000",,,"2 bds, 3.0 ba ,2298 sqft",Compass,https://www.zillow.com/homedetails/1-D-St-SE-Washington-DC-20003/2080548316_zpid/
+House for sale,,Washington,DC,20003,"$949,900",,3690,"2 bds, 3.0 ba ,2022 sqft",Compass,https://www.zillow.com/homedetails/524-13th-St-SE-B-Washington-DC-20003/63891410_zpid/
+New construction,,Washington,DC,20003,"$779,900",768996,,"2 bds, 2.0 ba ,1048 sqft",McWilliams/Ballard Inc.,https://www.zillow.com/homedetails/1211-Van-St-SE-518-Washington-DC-20003/2080032547_zpid/
+Condo for sale,,Washington,DC,20003,"$499,999",566024,2415,"2 bds, 2.0 ba ,870 sqft",Realty Advantage,https://www.zillow.com/homedetails/259-14th-St-SE-UNIT-B-Washington-DC-20003/63891380_zpid/
+House for sale,,Washington,DC,20003,"$2,299,000",2244406,4900,"5 bds, 4.0 ba ,3384 sqft",Compass,https://www.zillow.com/homedetails/302-12th-St-SE-Washington-DC-20003/61618369_zpid/
+New construction,,Washington,DC,20003,"$786,999",787006,,"3 bds, 3.0 ba ,1080 sqft",Monument Sotheby's International Realty,https://www.zillow.com/homedetails/465-Duvall-Ct-SE-A-Washington-DC-20003/2078140165_zpid/
+New construction,,Washington,DC,20003,"$779,900",768996,,"2 bds, 2.0 ba ,1048 sqft",McWilliams/Ballard Inc.,https://www.zillow.com/homedetails/1211-Van-St-SE-518-Washington-DC-20003/2080032547_zpid/
+House for sale,,Washington,DC,20003,"$799,900",789860,2850,"3 bds, 2.0 ba ,1394 sqft",Compass,https://www.zillow.com/homedetails/113-18th-St-SE-Washington-DC-20003/426948_zpid/
+New construction,,Washington,DC,20003,"$699,900",699900,,"2 bds, 2.0 ba ,None sqft",Compass,https://www.zillow.com/homedetails/1519-K-St-SE-302-Washington-DC-20003/2077823391_zpid/
+Condo for sale,,Washington,DC,20003,"$749,000",749015,,"2 bds, 2.0 ba ,1039 sqft",,https://www.zillow.com/homedetails/1345-K-St-SE-UNIT-302-Washington-DC-20003/311112112_zpid/
+New construction,,Washington,DC,20003,"$550,000",540983,,"2 bds, 2.0 ba ,830 sqft",Compass,https://www.zillow.com/homedetails/1220-Potomac-Ave-SE-4-Washington-DC-20003/2078262064_zpid/
+Condo for sale,,Washington,DC,20003,"$589,508",589510,3032,"2 bds, 2.0 ba ,1027 sqft",Compass,https://www.zillow.com/homedetails/1000-New-Jersey-Ave-SE-APT-311-Washington-DC-20003/2100028778_zpid/
+House for sale,,Washington,DC,20003,"$1,299,900",1299908,,"3 bds, 3.0 ba ,None sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/602-E-St-SE-B-Washington-DC-20003/2078205708_zpid/
+Townhouse for sale,,Washington,DC,20003,"$799,000",810430,2600,"2 bds, 2.0 ba ,1401 sqft",Weichert Realtors,https://www.zillow.com/homedetails/1714-Independence-Ave-SE-Washington-DC-20003/426910_zpid/
+House for sale,,Washington,DC,20003,"$1,795,000",1748638,2995,"4 bds, 3.0 ba ,2260 sqft",Berkshire Hathaway HomeServices PenFed Realty,https://www.zillow.com/homedetails/521-11th-St-SE-Washington-DC-20003/420971_zpid/
+Condo for sale,,Washington,DC,20003,"$749,500",742880,3000,"2 bds, 3.0 ba ,1417 sqft",Keller Williams Capital Properties,https://www.zillow.com/homedetails/600-Kentucky-Ave-SE-UNIT-B-Washington-DC-20003/71739939_zpid/
+House for sale,,Washington,DC,20003,"$1,299,000",1299009,2847,"5 bds, 2.0 ba ,2382 sqft","SourceOne Realty Group, LLC.",https://www.zillow.com/homedetails/1201-Potomac-Ave-SE-Washington-DC-20003/295435587_zpid/
+Condo for sale,,Washington,DC,20003,"$1,699,000",1762056,6930,"2 bds, 2.0 ba ,1971 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/514-4th-St-SE-UNIT-301-Washington-DC-20003/250253070_zpid/
+Townhouse for sale,,Washington,DC,20003,"$949,000",960043,2625,"3 bds, 3.0 ba ,1194 sqft",Derek Eisenberg,https://www.zillow.com/homedetails/118-14th-St-SE-Washington-DC-20003/425326_zpid/
+New construction,,Washington,DC,20003,"$1,150,000",1150006,,"3 bds, 4.0 ba ,1760 sqft",Monument Sotheby's International Realty,https://www.zillow.com/homedetails/1319-E-St-SE-3-Washington-DC-20003/2077872861_zpid/
+New construction,,Washington,DC,20003,"$879,900",870944,,"2 bds, 2.0 ba ,1104 sqft",,https://www.zillow.com/homedetails/70-N-St-SE-403-Washington-DC-20003/2080301117_zpid/
+House for sale,,Washington,DC,20003,"$759,900",772688,2900,"2 bds, 2.0 ba ,1088 sqft",Coldwell Banker Residential Brokerage,https://www.zillow.com/homedetails/1407-K-St-SE-Washington-DC-20003/425686_zpid/
+New construction,,Washington,DC,20003,"$774,999",775003,,"2 bds, 3.0 ba ,1080 sqft",Monument Sotheby's International Realty,https://www.zillow.com/homedetails/469-Duvall-Ct-SE-C-Washington-DC-20003/2078139864_zpid/
+New construction,,Washington,DC,20003,"$1,150,000",891648,,"3 bds, 4.0 ba ,1800 sqft",OPaL,https://www.zillow.com/homedetails/1319-E-St-SE-Washington-DC-20003/2078287099_zpid/
+Condo for sale,,Washington,DC,20003,"$739,000",695741,2950,"2 bds, 2.0 ba ,1132 sqft",,https://www.zillow.com/homedetails/1401-K-St-SE-3-Washington-DC-20003/183133358_zpid/
+New construction,,Washington,DC,20003,"$1,525,000",1477651,2300,"4 bds, 5.0 ba ,2765 sqft",McWilliams/Ballard Inc.,https://www.zillow.com/homedetails/1327-D-St-SE-Washington-DC-20003/247164032_zpid/
+New construction,,Washington,DC,20003,"$1,675,000",1622113,2300,"4 bds, 5.0 ba ,2829 sqft",McWilliams/Ballard Inc.,https://www.zillow.com/homedetails/1325-D-St-SE-Washington-DC-20003/247164051_zpid/
+House for sale,,Washington,FL,20003,"$1,650,000",1201233,,"5 bds, 6.0 ba ,6234 sqft",Keller Williams Realty Partners SW,https://www.zillow.com/homedetails/20003-Mar-Rojo-Y-Mar-Egeo-Washington-FL-20003/2079091141_zpid/
+New construction,,Washington,DC,20003,"$949,900",949908,,"2 bds, 2.0 ba ,1062 sqft",McWilliams/Ballard Inc.,https://www.zillow.com/homedetails/1111-Pennsylvania-Ave-SE-UNIT-409-Washington-DC-20003/2078689883_zpid/
+New construction,,Washington,DC,20003,"$895,000",895006,,"2 bds, 3.0 ba ,1215 sqft",Monument Sotheby's International Realty,https://www.zillow.com/homedetails/1321-E-St-SE-14-Washington-DC-20003/2078288188_zpid/
+New construction,,Washington,DC,20003,"$895,000",801240,,"2 bds, 3.0 ba ,1215 sqft",OPaL,https://www.zillow.com/homedetails/1321-E-St-SE-Washington-DC-20003/2078355688_zpid/
+New construction,,Washington,DC,20003,"$1,245,000",1232536,,"3 bds, 4.0 ba ,2400 sqft",McWilliams/Ballard Inc.,https://www.zillow.com/homedetails/1231-E-St-SE-Washington-DC-20003/2080439363_zpid/
+New construction,,Washington,DC,20003,"$1,100,000",1100000,,"2 bds, 2.0 ba ,1100 sqft",OPaL,https://www.zillow.com/homedetails/1319-E-St-SE-24-Washington-DC-20003/2078308110_zpid/
+Pre-foreclosure,,Washington,DC,20003,,835723,3000,"3 bds, 3.0 ba ,1600 sqft",,https://www.zillow.com/homedetails/1532-E-St-SE-Washington-DC-20003/426072_zpid/

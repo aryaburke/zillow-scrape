@@ -5,6 +5,9 @@ import argparse
 import json
 from urllib.request import Request, urlopen
 
+BED_COUNT = 2
+BATH_COUNT = 2
+MAX_PRICE = 300
 
 def clean(text):
     if text:
@@ -23,18 +26,17 @@ def get_headers():
     return headers
 
 
-def create_url(zipcode, filter):
+def create_url(zipcode, filter, page):
+    print("Getting data for page: {0}, bed count: {1}, bath count: {2}".format(page, BED_COUNT, BATH_COUNT))
     # Creating Zillow URL based on the filter.
-
     if filter == "newest":
         url = "https://www.zillow.com/homes/for_sale/{0}/0_singlestory/days_sort".format(zipcode)
     elif filter == "cheapest":
         url = "https://www.zillow.com/homes/for_sale/{0}/0_singlestory/pricea_sort/".format(zipcode)
     else:
-        url = "https://www.zillow.com/homes/for_sale/{0}_rb/?fromHomePage=true&shouldFireSellPageImplicitClaimGA=false&fromHomePageTab=buy".format(zipcode)
+        url = "https://www.zillow.com/homes/for_sale/{0}_rb/{1}-_beds/{2}-_baths/{3}_p/?fromHomePage=true&shouldFireSellPageImplicitClaimGA=false&fromHomePageTab=buy".format(zipcode, BED_COUNT, BATH_COUNT, page)
     print(url)
     return url
-
 
 def save_to_file(response):
     # saving response to `response.html`
@@ -47,7 +49,7 @@ def write_data_to_csv(data):
     # saving scraped data to csv.
 
     with open("properties-%s.csv" % (zipcode), 'wb') as csvfile:
-        fieldnames = ['title', 'address', 'city', 'state', 'postal_code', 'price', 'zestimate', 'facts and features', 'real estate provider', 'url']
+        fieldnames = ['title', 'address', 'city', 'state', 'postal_code', 'price', 'zestimate', 'zestimate_rent', 'facts and features', 'real estate provider', 'url']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for row in data:
@@ -55,11 +57,10 @@ def write_data_to_csv(data):
 
 
 def get_response(url):
-    # Getting response from zillow.com.
-
+    # Getting response from zillow.com
     for i in range(5):
         response = requests.get(url, headers=get_headers())
-        print("status code received:", response.status_code)
+        print("Status code received:", response.status_code)
         if response.status_code != 200:
             # saving response to file for debugging purpose.
             save_to_file(response)
@@ -95,6 +96,7 @@ def get_data_from_json(raw_json_data):
             broker = properties.get('brokerName')
             property_url = properties.get('detailUrl')
             title = properties.get('statusText')
+            zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
 
             data = {'address': address,
                     'city': city,
@@ -102,6 +104,7 @@ def get_data_from_json(raw_json_data):
                     'postal_code': postal_code,
                     'price': price,
                     'zestimate': zestimate,
+                    'zestimate_rent': zestimate_rent,
                     'facts and features': info,
                     'real estate provider': broker,
                     'url': property_url,
@@ -116,65 +119,32 @@ def get_data_from_json(raw_json_data):
 
 
 def parse(zipcode, filter=None):
-    url = create_url(zipcode, filter)
-    response = get_response(url)
+    final_data = []
+    for page in range(1, 4):
+      url = create_url(zipcode, filter, page)
+      response = get_response(url)
 
-    if not response:
-        print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
-        return None
+      if not response:
+          print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
+          return None
 
-    # These two new lines are added
-    req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    webpage = urlopen(req).read()
+      req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+      webpage = urlopen(req).read()
 
-    #replace the parser to take input added above
-    #parser = html.fromstring(response.text)
-    parser = html.fromstring(webpage)
-    search_results = parser.xpath("//div[@id='search-results']//article")
+      parser = html.fromstring(webpage)
+      search_results = parser.xpath("//div[@id='search-results']//article")
 
-    if not search_results:
-        print("parsing from json data")
-        # identified as type 2 page
-        raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
-        return get_data_from_json(raw_json_data)
-
-    print("parsing from html page")
-    properties_list = []
-    for properties in search_results:
-        raw_address = properties.xpath(".//span[@itemprop='address']//span[@itemprop='streetAddress']//text()")
-        raw_city = properties.xpath(".//span[@itemprop='address']//span[@itemprop='addressLocality']//text()")
-        raw_state = properties.xpath(".//span[@itemprop='address']//span[@itemprop='addressRegion']//text()")
-        raw_postal_code = properties.xpath(".//span[@itemprop='address']//span[@itemprop='postalCode']//text()")
-        raw_price = properties.xpath(".//span[@class='zsg-photo-card-price']//text()")
-        raw_info = properties.xpath(".//span[@class='zsg-photo-card-info']//text()")
-        raw_broker_name = properties.xpath(".//span[@class='zsg-photo-card-broker-name']//text()")
-        url = properties.xpath(".//a[contains(@class,'overlay-link')]/@href")
-        raw_title = properties.xpath(".//h4//text()")
-
-        address = clean(raw_address)
-        city = clean(raw_city)
-        state = clean(raw_state)
-        postal_code = clean(raw_postal_code)
-        price = clean(raw_price)
-        info = clean(raw_info).replace(u"\xb7", ',')
-        broker = clean(raw_broker_name)
-        title = clean(raw_title)
-        property_url = "https://www.zillow.com" + url[0] if url else None
-        is_forsale = properties.xpath('.//span[@class="zsg-icon-for-sale"]')
-
-        properties = {'address': address,
-                      'city': city,
-                      'state': state,
-                      'postal_code': postal_code,
-                      'price': price,
-                      'facts and features': info,
-                      'real estate provider': broker,
-                      'url': property_url,
-                      'title': title}
-        if is_forsale:
-            properties_list.append(properties)
-    return properties_list
-
+      if not search_results:
+          print("Parsing from json data")
+          # identified as type 2 page
+          raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
+          parsed_data = get_data_from_json(raw_json_data)
+          if parsed_data not in final_data:
+            final_data.append(parsed_data)
+    # The result is array of array, flatten it
+    flattened = [val for sublist in final_data for val in sublist]
+    print("Properties count: {0}".format(len(flattened)))
+    return flattened
 
 if __name__ == "__main__":
     # Reading arguments
