@@ -179,6 +179,7 @@ if __name__ == "__main__":
     sort = args.sort
     print ("Fetching data for %s" % (zipcode))
     scraped_data = parse(zipcode, sort)
+    print(scraped_data)
     if scraped_data:
         print ("Writing data to output file")
         write_data_to_csv(scraped_data)
