@@ -7,7 +7,10 @@ from urllib.request import Request, urlopen
 
 BED_COUNT = 2
 BATH_COUNT = 2
-MAX_PRICE = 300
+MAX_PRICE_IN_WV = 217
+NEW_CONSTRUCTION = "New construction"
+PLUS = "+"
+
 
 def clean(text):
     if text:
@@ -88,6 +91,7 @@ def get_data_from_json(raw_json_data):
             state = property_info.get('state')
             postal_code = property_info.get('zipcode')
             price = properties.get('price')
+            unformatted_price = properties.get('unformattedPrice')
             zestimate = properties.get('zestimate')
             bedrooms = properties.get('beds')
             bathrooms = properties.get('baths')
@@ -99,6 +103,17 @@ def get_data_from_json(raw_json_data):
             zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
             price_to_rent_ratio = ""
 
+            if title != NEW_CONSTRUCTION:
+              continue
+
+            if unformatted_price > MAX_PRICE_IN_WV:
+              continue
+
+            # If there is plus at the end of the price this means it is not a final price
+            if PLUS in price:
+              continue
+
+            print(properties)
             if zestimate_rent and zestimate:
               price_to_rent_ratio = round(zestimate_rent / zestimate * 100, 2)
 
