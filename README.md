@@ -31,17 +31,35 @@ python zillow.py <zipcode>
 ```
 This will create a CSV file in the same directory.
 
-## modify the code
+## Git Usage
 
-#GIT ADD branch: git checkout -b <branch_name>
+### To create a new branch:
+```
+git checkout master
+git pull origin master
+git checkout -b <branch_name>
+```
 
-#Check what has been modified: git status
+### Check what has been modified:
+```
+git status
+```
 
-#Add changes to the branch: git add -A
+### Add changes to the branch:
+```
+git add -A
+```
 
-#commit branch: git commit -m <"something">
+### Commit changes:
+```
+git commit -m <"something">
+```
 
-push code: git push origin <branch name no quoute>
+### Push code to a remote:
+```
+git push origin <branch name no quoute>
+```
+
 
 
 
