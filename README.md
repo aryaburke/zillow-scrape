@@ -30,6 +30,10 @@ pip install -r requirements-python3.txt
 python zillow.py <zipcode>
 ```
 This will create a CSV file in the same directory.
+You can pass a list of zipcodes separated by comma (no space between zipcodes):
+```
+python zillow.py 25420,23420
+```
 
 ## Git Usage
 
@@ -59,7 +63,4 @@ git commit -m <"something">
 ```
 git push origin <branch name no quoute>
 ```
-
-
-
 

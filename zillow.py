@@ -4,13 +4,13 @@ import unicodecsv as csv
 import argparse
 import json
 from urllib.request import Request, urlopen
+import time
 
 BED_COUNT = 2
 BATH_COUNT = 2
-MAX_PRICE_IN_WV = 217
+MAX_PRICE_IN_WV = 215000
 NEW_CONSTRUCTION = "New construction"
 PLUS = "+"
-
 
 def clean(text):
     if text:
@@ -150,7 +150,7 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    for page in range(1, 5):
+    for page in range(1, 4):
       url = create_url(zipcode, filter, page)
       response = get_response(url)
 
@@ -181,20 +181,18 @@ if __name__ == "__main__":
     # Reading arguments
 
     argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    argparser.add_argument('zipcode', help='')
-    sortorder_help = """
-    available sort orders are :
-    newest : Latest property details,
-    cheapest : Properties with cheapest price
-    """
+    argparser.add_argument('zipcodes', help='')
 
-    argparser.add_argument('sort', nargs='?', help=sortorder_help, default='Homes For You')
     args = argparser.parse_args()
-    zipcode = args.zipcode
-    sort = args.sort
-    print ("Fetching data for %s" % (zipcode))
-    scraped_data = parse(zipcode, sort)
-    print(scraped_data)
-    if scraped_data:
-        print ("Writing data to output file")
-        write_data_to_csv(scraped_data)
+
+    zipcodes = args.zipcodes
+    print(zipcodes.split(","))
+    #sort = args.sort
+    for zipcode in zipcodes.split(","):
+      time.sleep(3)
+      print ("Fetching data for %s" % (zipcode))
+      scraped_data = parse(zipcode, "")
+      print(scraped_data)
+      if scraped_data:
+          print ("Writing data to output file")
+          write_data_to_csv(scraped_data)
