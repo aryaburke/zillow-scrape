@@ -179,16 +179,15 @@ def parse(zipcode, filter=None):
 
 if __name__ == "__main__":
     # Reading arguments
-
     argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
     argparser.add_argument('zipcodes', help='')
 
     args = argparser.parse_args()
-
     zipcodes = args.zipcodes
     print(zipcodes.split(","))
     #sort = args.sort
     for zipcode in zipcodes.split(","):
+      # Need sleep statement, otherwsie they might block us
       time.sleep(3)
       print ("Fetching data for %s" % (zipcode))
       scraped_data = parse(zipcode, "")
