@@ -135,7 +135,7 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    for page in range(1, 4):
+    for page in range(1, 5):
       url = create_url(zipcode, filter, page)
       response = get_response(url)
 
