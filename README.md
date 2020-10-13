@@ -9,6 +9,11 @@ virtualenv .venv --python python3
 ```
 
 2. Activate Virtualenv
+
+```
+source .venv/bin/activate
+```
+
 ```
 
 in windows:
