@@ -1,3 +1,5 @@
 .venv
 properties*
 *.html
+.mypy_cache
+.DS_store

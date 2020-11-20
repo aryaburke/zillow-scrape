@@ -1,0 +1,37 @@
+foil-scraping
+testing summary
+
+SUCCESSES: 
+zillow-scrape @ https://github.com/aroltsch/zillow-scrape
+after editing line 95 in zillow.py to 
+info = '{0} bds, {1} ba ,{2} sqft'.format(bedrooms,bathrooms,area)
+
+
+POSSIBLY LOOK INTO:
+zillow-scraper-by-zpid @ https://github.com/gvanorden/zillow-scraper-by-zpid
+this gets all the info for a property - could be combined or integrated w/above at to help us better get the values we want
+
+
+FAILURES:
+scrapezillow @ https://github.com/pbk7700/scrapezillow
+after updating library names for python3
+problems likely due to updated version of beautifulsoup
+
+ScrapeZillow @ https://github.com/mikecrivello/ScrapeZillow
+after updating for python3
+no data is written to output regardless of zip
+
+zillow_scraper @ https://github.com/lilincmu/zillow_scraper
+a good chunk of errors - may not be a complete project
+
+Python-Scrape-Zillow @ https://github.com/ikicker/Python-Scrape-Zillow
+it's just a copy of aroltsch's scraper
+
+zillow-listing-scraper @ https://github.com/tdigangi5/zillow-listing-scraper
+looks like another copy of aroltsch
+
+glowing-tribble @ https://github.com/sanjeevsiva17/glowing-tribble 
+NoneType error buried in the code, unfortunate because this one looked promising
+
+zillow_scraper @ https://github.com/pydeveloper78/zillow_scraper
+doesn't generate a csv to write to properly
