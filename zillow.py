@@ -81,7 +81,7 @@ def get_data_from_json(raw_json_data):
     try:
         json_data = json.loads(cleaned_data)
         search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
-
+        #print(search_results)
         for properties in search_results:
             address = properties.get('addressWithZip')
             property_info = properties.get('hdpData', {}).get('homeInfo')
@@ -164,6 +164,7 @@ def parse(zipcode, filter=None):
     print("Properties count: {0}".format(len(uniq)))
     return uniq
 
+#below functions written by arya
 def table_exists(TableName):
     #returns True if the table TableName exists, False otherwise
     dbclient = boto3.client('dynamodb')
@@ -185,8 +186,8 @@ def create_dynamo_table():
                     'KeyType': 'HASH'
                 },
                 {
-                'AttributeName': 'last_name',
-                'KeyType': 'RANGE'
+                    'AttributeName': 'last_name',
+                    'KeyType': 'RANGE'
                 }
             ],
             AttributeDefinitions=[
@@ -211,9 +212,7 @@ def create_dynamo_table():
 
 if __name__ == "__main__":
     # Reading arguments
-    #create_dynamo_table()
-    
-    '''argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
+    argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
     argparser.add_argument('zipcode', help='')
     sortorder_help = """
     available sort orders are :
@@ -230,4 +229,4 @@ if __name__ == "__main__":
     print(scraped_data)
     if scraped_data:
         print ("Writing data to output file")
-        write_data_to_csv(scraped_data)'''
+        write_data_to_csv(scraped_data)
