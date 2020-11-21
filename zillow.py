@@ -4,6 +4,7 @@ import unicodecsv as csv
 import argparse
 import json
 from urllib.request import Request, urlopen
+import boto3
 
 BED_COUNT = 1
 BATH_COUNT = 1
@@ -45,7 +46,7 @@ def save_to_file(response):
         fp.write(response.text)
 
 
-def write_data_to_csv(data):
+"""def write_data_to_csv(data):
     # saving scraped data to csv.
 
     with open("properties-%s.csv" % (zipcode), 'wb') as csvfile:
@@ -53,7 +54,7 @@ def write_data_to_csv(data):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for row in data:
-            writer.writerow(row)
+            writer.writerow(row)"""
 
 
 def get_response(url):
@@ -163,10 +164,56 @@ def parse(zipcode, filter=None):
     print("Properties count: {0}".format(len(uniq)))
     return uniq
 
+def table_exists(TableName):
+    #returns True if the table TableName exists, False otherwise
+    dbclient = boto3.client('dynamodb')
+    exists = True
+    try:
+        dbclient.describe_table(TableName='properties')
+    except:
+        exists = False
+    return exists
+
+def create_dynamo_table():
+    dynamodb = boto3.resource('dynamodb')
+    if not table_exists('properties'):
+        table = dynamodb.create_table(
+            TableName='properties',
+            KeySchema=[
+                {
+                    'AttributeName': 'username',
+                    'KeyType': 'HASH'
+                },
+                {
+                'AttributeName': 'last_name',
+                'KeyType': 'RANGE'
+                }
+            ],
+            AttributeDefinitions=[
+                {
+                    'AttributeName': 'username',
+                    'AttributeType': 'S'
+                },
+                {
+                    'AttributeName': 'last_name',
+                    'AttributeType': 'S'
+                },
+            ],
+            ProvisionedThroughput={
+                'ReadCapacityUnits': 5,
+                'WriteCapacityUnits': 5
+            }
+        )
+        # Wait until the table exists.
+        table.meta.client.get_waiter('table_exists').wait(TableName='users')
+        # Print out some data about the table.
+        print(table.item_count)
+
 if __name__ == "__main__":
     # Reading arguments
-
-    argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
+    #create_dynamo_table()
+    
+    '''argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
     argparser.add_argument('zipcode', help='')
     sortorder_help = """
     available sort orders are :
@@ -183,4 +230,4 @@ if __name__ == "__main__":
     print(scraped_data)
     if scraped_data:
         print ("Writing data to output file")
-        write_data_to_csv(scraped_data)
+        write_data_to_csv(scraped_data)'''

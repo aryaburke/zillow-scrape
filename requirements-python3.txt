@@ -1,3 +1,4 @@
 requests
 lxml
 unicodecsv
+boto3
