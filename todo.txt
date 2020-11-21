@@ -1,4 +1,3 @@
 repo - autodeploy to aws
 hook up with dynamo
 make pagination more robust
-consolidate git

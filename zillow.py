@@ -92,7 +92,7 @@ def get_data_from_json(raw_json_data):
             bedrooms = properties.get('beds')
             bathrooms = properties.get('baths')
             area = properties.get('area')
-            info = f'{bedrooms} bds, {bathrooms} ba ,{area} sqft'
+            info = '{0} bds, {1} ba ,{2} sqft'.format(bedrooms,bathrooms,area)
             broker = properties.get('brokerName')
             property_url = properties.get('detailUrl')
             title = properties.get('statusText')
