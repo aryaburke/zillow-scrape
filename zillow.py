@@ -5,8 +5,8 @@ import argparse
 import json
 from urllib.request import Request, urlopen
 
-BED_COUNT = 2
-BATH_COUNT = 2
+BED_COUNT = 1
+BATH_COUNT = 1
 MAX_PRICE = 300
 
 def clean(text):
@@ -49,7 +49,7 @@ def write_data_to_csv(data):
     # saving scraped data to csv.
 
     with open("properties-%s.csv" % (zipcode), 'wb') as csvfile:
-        fieldnames = ['title', 'address', 'city', 'state', 'postal_code', 'price', 'zestimate', 'zestimate_rent', 'price_to_rent_ratio', 'facts and features', 'real estate provider', 'url']
+        fieldnames = ['title', 'address', 'city', 'state', 'postal_code', 'price', 'zestimate', 'zestimate_rent', 'price_to_rent_ratio', 'bathrooms', 'bedrooms', 'area', 'real estate provider', 'url']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for row in data:
@@ -92,7 +92,6 @@ def get_data_from_json(raw_json_data):
             bedrooms = properties.get('beds')
             bathrooms = properties.get('baths')
             area = properties.get('area')
-            info = '{0} bds, {1} ba ,{2} sqft'.format(bedrooms,bathrooms,area)
             broker = properties.get('brokerName')
             property_url = properties.get('detailUrl')
             title = properties.get('statusText')
@@ -110,7 +109,9 @@ def get_data_from_json(raw_json_data):
                     'zestimate': zestimate,
                     'zestimate_rent': zestimate_rent,
                     'price_to_rent_ratio': price_to_rent_ratio,
-                    'facts and features': info,
+                    'bathrooms': bathrooms,
+                    'bedrooms': bedrooms,
+                    'area': area,
                     'real estate provider': broker,
                     'url': property_url,
                     'title': title}
