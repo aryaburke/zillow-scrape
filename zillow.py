@@ -20,7 +20,6 @@ def clean(text):
         return ' '.join(' '.join(text).split())
     return None
 
-
 def get_headers():
     # Creating headers.
     headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -30,7 +29,6 @@ def get_headers():
                'upgrade-insecure-requests': '1',
                'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'}
     return headers
-
 
 def create_url(zipcode, filter, page):
     print("Getting data for page: {0}, bed count: {1}, bath count: {2}".format(page, BED_COUNT, BATH_COUNT))
@@ -46,20 +44,8 @@ def create_url(zipcode, filter, page):
 
 def save_to_file(response):
     # saving response to `response.html`
-
     with open("response.html", 'w') as fp:
         fp.write(response.text)
-
-
-def write_to_csv(zipcode, data):
-    # saving scraped data to csv.
-    with open("properties-%s.csv" % (zipcode), 'wb') as csvfile:
-        fieldnames = ['zpid','title', 'address', 'city', 'state', 'zipcode', 'price', 'zestimate', 'zestimate_rent', 'price_to_rent_ratio', 'bathrooms', 'bedrooms', 'area', 'real estate provider', 'url', 'hasImage', 'imgSrc']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in data:
-            writer.writerow(row)
-
 
 def get_response(url):
     # Getting response from zillow.com
@@ -81,7 +67,6 @@ def get_data_from_json(raw_json_data):
     cleaned_data = clean(raw_json_data).replace('<!--', "").replace("-->", "")
     #print(cleaned_data)
     properties_list = []
-
     try:
         json_data = json.loads(cleaned_data)
         search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
@@ -174,7 +159,11 @@ def parse(zipcode, filter=None):
     print("Properties count: {0}".format(len(uniq)))
     return uniq
 
-#below functions written by arya
+#below functions written by arya for DynamoDDB
+
+
+
+
 def table_exists(TableName, dbclient=None):
     #returns True if the table TableName exists, False otherwise
     if not dbclient:
@@ -187,6 +176,7 @@ def table_exists(TableName, dbclient=None):
     return exists
 
 def create_properties_table(dynamodb=None):
+    #creates the properties table if it doesn't exist
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb')
     if not table_exists('properties'):
@@ -217,31 +207,19 @@ def create_properties_table(dynamodb=None):
                 'WriteCapacityUnits': 5
             }
         )
-        # Wait until the table exists.
-        #table.meta.client.get_waiter('table_exists').wait(TableName='users')
         # Print out some data about the table.
         print("Table status:", table.table_status)
 
-def searchwrite_csv(zips, sort="Homes For You"):
-#takes an array of zipcodes and a sort order
-#other sort options: newest, cheapest
-    for zipcode in zips:
-        print ("Fetching data for %s" % (zipcode))
-        scraped_data = parse(zipcode, sort)
-        print(scraped_data)
-        if scraped_data:
-            print ("Writing data to output file")
-            write_to_csv(zipcode, scraped_data)
-            print("FINISHED {0}".format(zipcode))
-
-def write_to_properties(zipcode, data, dynamodb=None):
+def write_to_properties(zipcode, data, tablename='properties', dynamodb=None):
+    #writes the parsed data to a table, defaults to properties
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('properties')
+    table = dynamodb.Table(tablename)
     for row in data:
         table.put_item(Item=row)
 
-def searchwrite_db(zips, dynamodb=None, sort="Homes For You"):
+def searchwrite(zips, dynamodb=None, sort="Homes For You"):
+    #searches each zipcode in an array of zipcodes and writes it to the properties table
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb')
     create_properties_table(dynamodb)
@@ -255,17 +233,4 @@ def searchwrite_db(zips, dynamodb=None, sort="Homes For You"):
             print("FINISHED {0}".format(zipcode))
 
 if __name__ == "__main__":
-    #commented out is used for command line
-    '''argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    argparser.add_argument('zipcode', help='')
-    sortorder_help = """
-    available sort orders are :
-    newest : Latest property details,
-    cheapest : Properties with cheapest price
-    """
-    argparser.add_argument('sort', nargs='?', help=sortorder_help, default='Homes For You')
-    args = argparser.parse_args()
-    zipcode = args.zipcode
-    sort = args.sort'''
-
-    searchwrite_db(ZIPCODES)
+    searchwrite(ZIPCODES)
