@@ -5,10 +5,15 @@ import argparse
 import json
 from urllib.request import Request, urlopen
 import boto3
+from decimal import *
 
 BED_COUNT = 1
 BATH_COUNT = 1
 MAX_PRICE = 300
+
+ZIPCODES = [
+    "94102",
+]
 
 def clean(text):
     if text:
@@ -46,15 +51,14 @@ def save_to_file(response):
         fp.write(response.text)
 
 
-"""def write_data_to_csv(data):
+def write_to_csv(zipcode, data):
     # saving scraped data to csv.
-
     with open("properties-%s.csv" % (zipcode), 'wb') as csvfile:
-        fieldnames = ['title', 'address', 'city', 'state', 'postal_code', 'price', 'zestimate', 'zestimate_rent', 'price_to_rent_ratio', 'bathrooms', 'bedrooms', 'area', 'real estate provider', 'url']
+        fieldnames = ['zpid','title', 'address', 'city', 'state', 'zipcode', 'price', 'zestimate', 'zestimate_rent', 'price_to_rent_ratio', 'bathrooms', 'bedrooms', 'area', 'real estate provider', 'url', 'hasImage', 'imgSrc']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for row in data:
-            writer.writerow(row)"""
+            writer.writerow(row)
 
 
 def get_response(url):
@@ -83,29 +87,33 @@ def get_data_from_json(raw_json_data):
         search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
         #print(search_results)
         for properties in search_results:
-            address = properties.get('addressWithZip')
+            zpid = properties.get('zpid')
+            address = properties.get('address')
             property_info = properties.get('hdpData', {}).get('homeInfo')
             city = property_info.get('city')
             state = property_info.get('state')
-            postal_code = property_info.get('zipcode')
+            zipcode = property_info.get('zipcode')
             price = properties.get('price')
             zestimate = properties.get('zestimate')
             bedrooms = properties.get('beds')
-            bathrooms = properties.get('baths')
+            bathrooms = Decimal(str(properties.get('baths')))
             area = properties.get('area')
             broker = properties.get('brokerName')
             property_url = properties.get('detailUrl')
             title = properties.get('statusText')
             zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
             price_to_rent_ratio = ""
+            hasImage = properties.get('hasImage')
+            imgSrc = properties.get('imgSrc')
 
             if zestimate_rent and zestimate:
-              price_to_rent_ratio = round(zestimate_rent / zestimate * 100, 2)
+              price_to_rent_ratio = Decimal(str(round(zestimate_rent / zestimate * 100, 2)))
 
-            data = {'address': address,
+            data = {'zpid': zpid,
+                    'address': address,
                     'city': city,
                     'state': state,
-                    'postal_code': postal_code,
+                    'zipcode': zipcode,
                     'price': price,
                     'zestimate': zestimate,
                     'zestimate_rent': zestimate_rent,
@@ -115,7 +123,9 @@ def get_data_from_json(raw_json_data):
                     'area': area,
                     'real estate provider': broker,
                     'url': property_url,
-                    'title': title}
+                    'title': title,
+                    'hasImage': hasImage,
+                    'imgSrc': imgSrc}
             properties_list.append(data)
 
         return properties_list
@@ -165,9 +175,10 @@ def parse(zipcode, filter=None):
     return uniq
 
 #below functions written by arya
-def table_exists(TableName):
+def table_exists(TableName, dbclient=None):
     #returns True if the table TableName exists, False otherwise
-    dbclient = boto3.client('dynamodb')
+    if not dbclient:
+        dbclient = boto3.client('dynamodb')
     exists = True
     try:
         dbclient.describe_table(TableName='properties')
@@ -175,28 +186,29 @@ def table_exists(TableName):
         exists = False
     return exists
 
-def create_dynamo_table():
-    dynamodb = boto3.resource('dynamodb')
+def create_properties_table(dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb')
     if not table_exists('properties'):
         table = dynamodb.create_table(
             TableName='properties',
             KeySchema=[
                 {
-                    'AttributeName': 'username',
+                    'AttributeName': 'zpid',
                     'KeyType': 'HASH'
                 },
                 {
-                    'AttributeName': 'last_name',
+                    'AttributeName': 'zipcode',
                     'KeyType': 'RANGE'
                 }
             ],
             AttributeDefinitions=[
                 {
-                    'AttributeName': 'username',
+                    'AttributeName': 'zpid',
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'last_name',
+                    'AttributeName': 'zipcode',
                     'AttributeType': 'S'
                 },
             ],
@@ -206,27 +218,54 @@ def create_dynamo_table():
             }
         )
         # Wait until the table exists.
-        table.meta.client.get_waiter('table_exists').wait(TableName='users')
+        #table.meta.client.get_waiter('table_exists').wait(TableName='users')
         # Print out some data about the table.
-        print(table.item_count)
+        print("Table status:", table.table_status)
+
+def searchwrite_csv(zips, sort="Homes For You"):
+#takes an array of zipcodes and a sort order
+#other sort options: newest, cheapest
+    for zipcode in zips:
+        print ("Fetching data for %s" % (zipcode))
+        scraped_data = parse(zipcode, sort)
+        print(scraped_data)
+        if scraped_data:
+            print ("Writing data to output file")
+            write_to_csv(zipcode, scraped_data)
+            print("FINISHED {0}".format(zipcode))
+
+def write_to_properties(zipcode, data, dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('properties')
+    for row in data:
+        table.put_item(Item=row)
+
+def searchwrite_db(zips, dynamodb=None, sort="Homes For You"):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb')
+    create_properties_table(dynamodb)
+    for zipcode in zips:
+        print ("Fetching data for %s" % (zipcode))
+        scraped_data = parse(zipcode, sort)
+        #print(scraped_data)
+        if scraped_data:
+            print ("Writing data to output file")
+            write_to_properties(zipcode, scraped_data, dynamodb)
+            print("FINISHED {0}".format(zipcode))
 
 if __name__ == "__main__":
-    # Reading arguments
-    argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
+    #commented out is used for command line
+    '''argparser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
     argparser.add_argument('zipcode', help='')
     sortorder_help = """
     available sort orders are :
     newest : Latest property details,
     cheapest : Properties with cheapest price
     """
-
     argparser.add_argument('sort', nargs='?', help=sortorder_help, default='Homes For You')
     args = argparser.parse_args()
     zipcode = args.zipcode
-    sort = args.sort
-    print ("Fetching data for %s" % (zipcode))
-    scraped_data = parse(zipcode, sort)
-    print(scraped_data)
-    if scraped_data:
-        print ("Writing data to output file")
-        write_data_to_csv(scraped_data)
+    sort = args.sort'''
+
+    searchwrite_db(ZIPCODES)
