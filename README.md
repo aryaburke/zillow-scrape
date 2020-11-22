@@ -1,4 +1,4 @@
-## Zillow Scrapper
+## Zillow Scraper
 
 
 ## Requirements
@@ -27,9 +27,9 @@ pip install -r requirements-python3.txt
 ## Usage
 
 ```
-python zillow.py <zipcode>
+python zillow.py
 ```
-This will create a CSV file in the same directory.
+This will write data searched from all zipcodes by default to our properties table.
 
 ## Git Usage
 
