@@ -234,3 +234,4 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
 
 if __name__ == "__main__":
     searchwrite(ZIPCODES)
+
