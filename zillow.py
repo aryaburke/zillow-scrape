@@ -7,12 +7,8 @@ from urllib.request import Request, urlopen
 import boto3
 from decimal import *
 
-BED_COUNT = 1
-BATH_COUNT = 1
-MAX_PRICE = 300
-
 ZIPCODES = [
-    "94102",
+    "05401",
 ]
 
 def clean(text):
@@ -31,14 +27,13 @@ def get_headers():
     return headers
 
 def create_url(zipcode, filter, page):
-    print("Getting data for page: {0}, bed count: {1}, bath count: {2}".format(page, BED_COUNT, BATH_COUNT))
-    # Creating Zillow URL based on the filter.
+    print("Getting data for page: {0}".format(page))
     if filter == "newest":
         url = "https://www.zillow.com/homes/for_sale/{0}/0_singlestory/days_sort".format(zipcode)
     elif filter == "cheapest":
         url = "https://www.zillow.com/homes/for_sale/{0}/0_singlestory/pricea_sort/".format(zipcode)
     else:
-        url = "https://www.zillow.com/homes/for_sale/{0}_rb/{1}-_beds/{2}-_baths/{3}_p/?fromHomePage=true&shouldFireSellPageImplicitClaimGA=false&fromHomePageTab=buy".format(zipcode, BED_COUNT, BATH_COUNT, page)
+        url = "https://www.zillow.com/homes/for_sale/{0}_rb/{1}_p/?fromHomePage=true&shouldFireSellPageImplicitClaimGA=false&fromHomePageTab=buy".format(zipcode, page)
     print(url)
     return url
 
@@ -81,7 +76,8 @@ def get_data_from_json(raw_json_data):
             price = properties.get('price')
             zestimate = properties.get('zestimate')
             bedrooms = properties.get('beds')
-            bathrooms = Decimal(str(properties.get('baths')))
+            if properties.get('baths'):
+                bathrooms = Decimal(str(properties.get('baths')))
             area = properties.get('area')
             broker = properties.get('brokerName')
             property_url = properties.get('detailUrl')
@@ -132,7 +128,7 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    for page in range(1, 5):
+    for page in range(1, 2):
       url = create_url(zipcode, filter, page)
       response = get_response(url)
 
@@ -151,6 +147,7 @@ def parse(zipcode, filter=None):
           # identified as type 2 page
           raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
           parsed_data = get_data_from_json(raw_json_data)
+          print(parsed_data)
           #if parsed_data not in final_data:
           final_data.append(parsed_data)
     # The result is array of array, flatten it
@@ -229,7 +226,7 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
         #print(scraped_data)
         if scraped_data:
             print ("Writing data to output file")
-            write_to_properties(zipcode, scraped_data, dynamodb)
+            write_to_properties(zipcode=zipcode, data=scraped_data, dynamodb=dynamodb)
             print("FINISHED {0}".format(zipcode))
 
 if __name__ == "__main__":
