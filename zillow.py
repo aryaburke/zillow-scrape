@@ -6,6 +6,7 @@ import json
 from urllib.request import Request, urlopen
 import boto3
 from decimal import *
+from zips import all_zips
 
 ZIPCODES = [
     "94102",
@@ -78,6 +79,8 @@ def get_data_from_json(raw_json_data):
             bedrooms = properties.get('beds')
             if properties.get('baths'):
                 bathrooms = Decimal(str(properties.get('baths')))
+            else:
+                bathrooms = 0
             area = properties.get('area')
             broker = properties.get('brokerName')
             property_url = properties.get('detailUrl')
@@ -128,7 +131,11 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    for page in range(1, 5):
+    last_parsed_data = []
+    parsed_data = [True]
+    #this is done so that it only reads until it starts getting repeat data
+    while parsed_data != last_parsed_data:
+      last_parsed_data = parsed_data
       url = create_url(zipcode, filter, page)
       response = get_response(url)
 
@@ -229,5 +236,8 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
             print("FINISHED {0}".format(zipcode))
 
 if __name__ == "__main__":
-    searchwrite(ZIPCODES)
+    for i in range (0,15):
+        zips = all_zips()
+        searchwrite([zips[i]])
+
 
