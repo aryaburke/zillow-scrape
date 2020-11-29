@@ -8,7 +8,7 @@ import boto3
 from decimal import *
 
 ZIPCODES = [
-    "05401",
+    "94102",
 ]
 
 def clean(text):
@@ -128,7 +128,7 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    for page in range(1, 2):
+    for page in range(1, 5):
       url = create_url(zipcode, filter, page)
       response = get_response(url)
 
@@ -147,7 +147,6 @@ def parse(zipcode, filter=None):
           # identified as type 2 page
           raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
           parsed_data = get_data_from_json(raw_json_data)
-          print(parsed_data)
           #if parsed_data not in final_data:
           final_data.append(parsed_data)
     # The result is array of array, flatten it
