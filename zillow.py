@@ -8,7 +8,7 @@ import boto3
 from decimal import *
 from zips import all_zips
 
-ZIPCODES = [
+TEST_ZIPCODES = [
     "94102",
 ]
 
@@ -131,10 +131,8 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    last
     #this is done so that it only reads until it starts getting repeat data
-    for i in range(1,6):
-      last_parsed_data = parsed_data
+    for page in range(1,6):
       url = create_url(zipcode, filter, page)
       response = get_response(url)
       print(response)
@@ -193,7 +191,7 @@ def create_properties_table(dynamodb=None):
                     'KeyType': 'HASH'
                 },
                 {
-                    'AttributeName': 'zipcode',
+                    'AttributeName': 'state',
                     'KeyType': 'RANGE'
                 }
             ],
@@ -203,9 +201,9 @@ def create_properties_table(dynamodb=None):
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'zipcode',
+                    'AttributeName': 'state',
                     'AttributeType': 'S'
-                },
+                }
             ],
             ProvisionedThroughput={
                 'ReadCapacityUnits': 5,
@@ -238,8 +236,7 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
             print("FINISHED {0}".format(zipcode))
 
 if __name__ == "__main__":
-    for i in range (0,15):
-        zips = all_zips()
-        searchwrite(["05401"])
+    zips = all_zips()
+    searchwrite(["05401"])
 
 

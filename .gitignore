@@ -4,3 +4,4 @@ properties*
 *.html
 .mypy_cache
 .DS_store
+__pycache__
