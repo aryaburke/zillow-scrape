@@ -6,7 +6,7 @@ below is the data scraped for each property
 'detailUrl': 'https://www.zillow.com/homedetails/163-165-Loomis-St-Burlington-VT-05401/2077416414_zpid/', 
 'statusType': 'FOR_SALE', 
 'statusText': 'Multi-family home for sale', 
-'countryCurrency': '$', 
+'countryCurrency': '$',  
 'price': '$1,100,000', 
 'unformattedPrice': 1100000, 
 'address': '163-165 Loomis St, Burlington, VT 05401', 
