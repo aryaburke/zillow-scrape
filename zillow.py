@@ -235,8 +235,8 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
             write_to_properties(zipcode=zipcode, data=scraped_data, dynamodb=dynamodb)
             print("FINISHED {0}".format(zipcode))
 
-if __name__ == "__main__":
+def main():
     zips = all_zips()
-    searchwrite(["05401"])
+    searchwrite(["10708"])
 
 
