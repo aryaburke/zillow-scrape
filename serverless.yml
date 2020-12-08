@@ -3,7 +3,7 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: python3.9
+  runtime: python3.8
   region: us-east-1
 
 custom:
@@ -11,7 +11,6 @@ custom:
     requests: true
     lxml: true
     unicodecsv: true
-    boto3: true
 
 package:
   individually: false
@@ -23,6 +22,10 @@ package:
 functions:
   hello:
     handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
 
 plugins:
   - serverless-python-requirements

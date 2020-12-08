@@ -240,3 +240,5 @@ def main():
     searchwrite(["10708"])
 
 
+if __name__ == "__main__":
+    main()

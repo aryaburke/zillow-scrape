@@ -1,11 +1,11 @@
 import json
-from zillow import main
+import zillow
 
 
 def hello(event, context):
     body = {
         "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": main()
+        "input": zillow.main()
     }
 
     response = {
