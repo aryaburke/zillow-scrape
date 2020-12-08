@@ -3,6 +3,7 @@ import zillow
 
 
 def hello(event, context):
+    #this function runs on deploy
     body = {
         "message": "Go Serverless v1.0! Your function executed successfully!",
         "input": zillow.main()
