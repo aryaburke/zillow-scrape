@@ -17,7 +17,6 @@ package:
   exclude:
     - package.json
     - package-log.json
-    - node_modules/**
 
 functions:
   hello:
