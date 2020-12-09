@@ -2,7 +2,9 @@
   "name": "zillow-scrape",
   "description": "",
   "version": "0.1.0",
-  "dependencies": {},
+  "dependencies": {
+    "jszip": "^3.5.0"
+  },
   "scripts": {
     "deploy": "serverless deploy"
   },
