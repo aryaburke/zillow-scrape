@@ -12,6 +12,7 @@ custom:
     requests: true
     lxml: true
     unicodecsv: true
+    setuptools: true
 
 package:
   individually: false
