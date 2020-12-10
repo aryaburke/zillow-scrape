@@ -1,5 +1,5 @@
 service: zillow-scrape
-frameworkVersion: '2'
+frameworkVersion: '1.83.2'
 
 provider:
   name: aws
