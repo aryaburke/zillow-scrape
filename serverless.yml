@@ -3,7 +3,7 @@ frameworkVersion: '1.83.2'
 
 provider:
   name: aws
-  runtime: python3.7
+  runtime: python3.6
   region: us-east-1
 
 custom:
@@ -12,7 +12,6 @@ custom:
     requests: true
     lxml: true
     unicodecsv: true
-    python3-setuptools: true
 
 package:
   individually: false
