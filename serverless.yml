@@ -12,6 +12,16 @@ custom:
     requests: true
     lxml: true
     unicodecsv: true
+    noDeploy:
+      - boto3
+      - botocore
+      - docutils
+      - jmespath
+      - pip
+      - python-dateutil
+      - s3transfer
+      # - setuptools
+      - six
 
 package:
   individually: false
