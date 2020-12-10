@@ -3,7 +3,7 @@ frameworkVersion: '1.83.2'
 
 provider:
   name: aws
-  runtime: python3.6
+  runtime: python3.4
   region: us-east-1
 
 custom:
