@@ -3,11 +3,12 @@ frameworkVersion: '1.83.2'
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.7
   region: us-east-1
 
 custom:
   pythonRequirements:
+    pythonBin: python3
     requests: true
     lxml: true
     unicodecsv: true
