@@ -12,7 +12,7 @@ custom:
     requests: true
     lxml: true
     unicodecsv: true
-    lambda-setuptools: true
+    python3-setuptools: true
 
 package:
   individually: false

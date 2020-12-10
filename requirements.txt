@@ -1,4 +1,4 @@
 requests
 lxml
 unicodecsv
-lambda-setuptools
+python3-setuptools
