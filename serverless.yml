@@ -1,5 +1,5 @@
 service: zillow-scrape
-frameworkVersion: '1.83.2'
+frameworkVersion: '2.15.0'
 
 provider:
   name: aws
@@ -12,6 +12,8 @@ custom:
     requests: true
     lxml: true
     unicodecsv: true
+    fileName: requirements.txt
+    dockerizePip: non-linux 
     noDeploy:
       - boto3
       - botocore
