@@ -9,7 +9,7 @@ from decimal import *
 from zips import all_zips
 
 TEST_ZIPCODES = [
-    "94102",
+    "03854",
 ]
 
 def clean(text):
@@ -49,18 +49,19 @@ def get_response(url):
         response = requests.get(url, headers=get_headers())
         print("Status code received:", response.status_code)
         if response.status_code != 200:
-            # saving response to file for debugging purpose.
-            save_to_file(response)
+            # saving response to file for debugging purpose, commented out because AWS uses read-only filesystem
+            # save_to_file(response)
             continue
         else:
-            save_to_file(response)
+            # save_to_file(response)
             return response
     return None
 
 def get_data_from_json(raw_json_data):
     # getting data from json (type 2 of their A/B testing page)
     #print(raw_json_data)
-    cleaned_data = clean(raw_json_data).replace('<!--', "").replace("-->", "")
+    if raw_json_data:
+        cleaned_data = clean(raw_json_data).replace('<!--', "").replace("-->", "")
     #print(cleaned_data)
     properties_list = []
     try:
@@ -237,8 +238,9 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
 
 def main():
     zips = all_zips()
-    searchwrite(zips)
+    searchwrite(["99553"])
 
 
 if __name__ == "__main__":
     main()
+    #debug on 99553
