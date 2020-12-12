@@ -92,7 +92,7 @@ def get_data_from_json(raw_json_data):
                 imgSrc = properties.get('imgSrc')
 
                 if zestimate_rent and zestimate:
-                price_to_rent_ratio = Decimal(str(round(zestimate_rent / zestimate * 100, 2)))
+                    price_to_rent_ratio = Decimal(str(round(zestimate_rent / zestimate * 100, 2)))
 
                 data = {'zpid': zpid,
                         'address': address,
