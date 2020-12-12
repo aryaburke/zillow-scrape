@@ -240,7 +240,7 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
 
 def main():
     zips = all_zips()
-    searchwrite(["99553"])
+    searchwrite(["03854"])
 
 
 if __name__ == "__main__":
