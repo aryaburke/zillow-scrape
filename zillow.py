@@ -62,62 +62,64 @@ def get_data_from_json(raw_json_data):
     #print(raw_json_data)
     if raw_json_data:
         cleaned_data = clean(raw_json_data).replace('<!--', "").replace("-->", "")
-    #print(cleaned_data)
-    properties_list = []
-    try:
-        json_data = json.loads(cleaned_data)
-        search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
-        #print(search_results)
-        for properties in search_results:
-            zpid = properties.get('zpid')
-            address = properties.get('address')
-            property_info = properties.get('hdpData', {}).get('homeInfo')
-            city = property_info.get('city')
-            state = property_info.get('state')
-            zipcode = property_info.get('zipcode')
-            price = properties.get('price')
-            zestimate = properties.get('zestimate')
-            bedrooms = properties.get('beds')
-            if properties.get('baths'):
-                bathrooms = Decimal(str(properties.get('baths')))
-            else:
-                bathrooms = 0
-            area = properties.get('area')
-            broker = properties.get('brokerName')
-            property_url = properties.get('detailUrl')
-            title = properties.get('statusText')
-            zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
-            price_to_rent_ratio = ""
-            hasImage = properties.get('hasImage')
-            imgSrc = properties.get('imgSrc')
+        #print(cleaned_data)
+        properties_list = []
+        try:
+            json_data = json.loads(cleaned_data)
+            search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
+            #print(search_results)
+            for properties in search_results:
+                zpid = properties.get('zpid')
+                address = properties.get('address')
+                property_info = properties.get('hdpData', {}).get('homeInfo')
+                city = property_info.get('city')
+                state = property_info.get('state')
+                zipcode = property_info.get('zipcode')
+                price = properties.get('price')
+                zestimate = properties.get('zestimate')
+                bedrooms = properties.get('beds')
+                if properties.get('baths'):
+                    bathrooms = Decimal(str(properties.get('baths')))
+                else:
+                    bathrooms = 0
+                area = properties.get('area')
+                broker = properties.get('brokerName')
+                property_url = properties.get('detailUrl')
+                title = properties.get('statusText')
+                zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
+                price_to_rent_ratio = ""
+                hasImage = properties.get('hasImage')
+                imgSrc = properties.get('imgSrc')
 
-            if zestimate_rent and zestimate:
-              price_to_rent_ratio = Decimal(str(round(zestimate_rent / zestimate * 100, 2)))
+                if zestimate_rent and zestimate:
+                price_to_rent_ratio = Decimal(str(round(zestimate_rent / zestimate * 100, 2)))
 
-            data = {'zpid': zpid,
-                    'address': address,
-                    'city': city,
-                    'state': state,
-                    'zipcode': zipcode,
-                    'price': price,
-                    'zestimate': zestimate,
-                    'zestimate_rent': zestimate_rent,
-                    'price_to_rent_ratio': price_to_rent_ratio,
-                    'bathrooms': bathrooms,
-                    'bedrooms': bedrooms,
-                    'area': area,
-                    'real estate provider': broker,
-                    'url': property_url,
-                    'title': title,
-                    'hasImage': hasImage,
-                    'imgSrc': imgSrc}
-            properties_list.append(data)
+                data = {'zpid': zpid,
+                        'address': address,
+                        'city': city,
+                        'state': state,
+                        'zipcode': zipcode,
+                        'price': price,
+                        'zestimate': zestimate,
+                        'zestimate_rent': zestimate_rent,
+                        'price_to_rent_ratio': price_to_rent_ratio,
+                        'bathrooms': bathrooms,
+                        'bedrooms': bedrooms,
+                        'area': area,
+                        'real estate provider': broker,
+                        'url': property_url,
+                        'title': title,
+                        'hasImage': hasImage,
+                        'imgSrc': imgSrc}
+                properties_list.append(data)
 
-        return properties_list
+            return properties_list
 
-    except ValueError:
-        print("Invalid json")
-        return None
+        except ValueError:
+            print("Invalid json")
+            return None
+    else:
+        return []
 
 def unique(list):
     # intilize a null list
@@ -238,7 +240,7 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
 
 def main():
     zips = all_zips()
-    searchwrite(["03854"])
+    searchwrite(["99553"])
 
 
 if __name__ == "__main__":
