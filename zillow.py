@@ -134,7 +134,6 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    #this is done so that it only reads until it starts getting repeat data
     for page in range(1,6):
       url = create_url(zipcode, filter, page)
       response = get_response(url)
@@ -157,8 +156,6 @@ def parse(zipcode, filter=None):
           parsed_data = get_data_from_json(raw_json_data)
           #if parsed_data not in final_data:
           final_data.append(parsed_data)
-
-      page += 1
     # The result is array of array, flatten it
     flattened = [val for sublist in final_data for val in sublist]
     uniq = unique(flattened)
