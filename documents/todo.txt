@@ -1,2 +1,7 @@
+1. don't run on deployment
+
+aws api gateway - create REST endpoint that calls lambda function
+or go to console directly
+
 repo - autodeploy to aws
 make pagination more robust
