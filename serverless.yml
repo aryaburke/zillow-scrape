@@ -3,7 +3,7 @@ frameworkVersion: '2.15.0'
 
 provider:
   name: aws
-  runtime: python3.6.4
+  runtime: python3.6
   region: us-east-1
 
 custom:
@@ -40,6 +40,9 @@ functions:
       - http:
           path: hello
           method: get
+    timeout: 30
+  scrape:
+    handler: handler.scrape
     timeout: 900
 
 plugins:
