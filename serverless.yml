@@ -43,6 +43,10 @@ functions:
     timeout: 30
   scrape:
     handler: handler.scrape
+    events:
+      - http:
+          path: scrape
+          method: get
     timeout: 900
 
 plugins:

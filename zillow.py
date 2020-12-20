@@ -135,27 +135,30 @@ def unique(list):
 def parse(zipcode, filter=None):
     final_data = []
     for page in range(1,6):
-      url = create_url(zipcode, filter, page)
-      response = get_response(url)
-      print(response)
+        url = create_url(zipcode, filter, page)
+        response = get_response(url)
+        print(response)
 
-      if not response:
-          print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
-          return None
+        if not response:
+            print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
+            return None
 
-      req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-      webpage = urlopen(req).read()
+        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        webpage = urlopen(req).read()
 
-      parser = html.fromstring(webpage)
-      search_results = parser.xpath("//div[@id='search-results']//article")
+        parser = html.fromstring(webpage)
+        search_results = parser.xpath("//div[@id='search-results']//article")
 
-      if not search_results:
-          print("Parsing from json data")
-          # identified as type 2 page
-          raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
-          parsed_data = get_data_from_json(raw_json_data)
-          #if parsed_data not in final_data:
-          final_data.append(parsed_data)
+        if not search_results:
+            print("Parsing from json data")
+            # identified as type 2 page
+            #! this is where there is no data found when deployed on serverless
+            raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
+            print(raw_json_data)
+            parsed_data = get_data_from_json(raw_json_data)
+            print(parsed_data)
+            #if parsed_data not in final_data:
+            final_data.append(parsed_data)
     # The result is array of array, flatten it
     flattened = [val for sublist in final_data for val in sublist]
     uniq = unique(flattened)
