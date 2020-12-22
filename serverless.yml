@@ -3,7 +3,7 @@ frameworkVersion: '2.15.0'
 
 provider:
   name: aws
-  runtime: python3.6
+  runtime: python3.8
   region: us-east-1
 
 custom:
@@ -13,7 +13,7 @@ custom:
     unicodecsv: true
     lxml: true
     fileName: requirements.txt
-    dockerizePip: non-linux
+    dockerizePip: true
     noDeploy:
       - boto3
       - botocore
