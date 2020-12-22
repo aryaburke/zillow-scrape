@@ -10,10 +10,11 @@ custom:
   pythonRequirements:
     pythonBin: python3
     requests: true
-    lxml: true
     unicodecsv: true
     fileName: requirements.txt
-    dockerizePip: non-linux 
+    dockerizePip: true
+    # [Add dockerFile]
+    dockerFile: ./Dockerfile
     noDeploy:
       - boto3
       - botocore
