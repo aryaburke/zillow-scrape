@@ -9,7 +9,7 @@ from decimal import *
 from zips import all_zips
 
 TEST_ZIPCODES = [
-    "03854",
+    "99553"
 ]
 
 def clean(text):
@@ -134,7 +134,12 @@ def unique(list):
 
 def parse(zipcode, filter=None):
     final_data = []
-    for page in range(1,6):
+    prev_parsed = []
+    parsed_data = None
+    page = 1
+    while parsed_data != prev_parsed:
+        #keeps track of previous parsed to check
+        prev_parsed = parsed_data
         url = create_url(zipcode, filter, page)
         response = get_response(url)
         print(response)
@@ -154,11 +159,10 @@ def parse(zipcode, filter=None):
             # identified as type 2 page
             #! this is where there is no data found when deployed on serverless
             raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
-            print(raw_json_data)
             parsed_data = get_data_from_json(raw_json_data)
-            print(parsed_data)
             #if parsed_data not in final_data:
             final_data.append(parsed_data)
+        page += 1
     # The result is array of array, flatten it
     flattened = [val for sublist in final_data for val in sublist]
     uniq = unique(flattened)
@@ -238,6 +242,11 @@ def searchwrite(zips, dynamodb=None, sort="Homes For You"):
             write_to_properties(zipcode=zipcode, data=scraped_data, dynamodb=dynamodb)
             print("FINISHED {0}".format(zipcode))
 
+def test():
+    zips = TEST_ZIPCODES
+    searchwrite(zips)
+    return "Success!"
+
 def main():
     zips = all_zips()
     searchwrite(zips)
@@ -246,4 +255,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    #debug on 99553
