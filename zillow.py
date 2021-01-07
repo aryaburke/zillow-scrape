@@ -140,7 +140,8 @@ def parse(zipcode, filter=None):
     while parsed_data != prev_parsed:
         #keeps track of previous parsed to check
         prev_parsed = parsed_data
-        url = create_url(zipcode, filter, page)
+        #url = create_url(zipcode, filter, page)
+        url = 'https://us16.proxysite.com/process.php?d=9K8YGbhhjnawfDhDrLL61lw4SrxX%2Fsv0oVPhBsU%2B7fEY2kxZwa7JudbD%2Bg%3D%3D&b=1&f=norefer'
         response = get_response(url)
         print(response)
 
