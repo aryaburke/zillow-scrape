@@ -59,7 +59,7 @@ def get_response(url):
 
 def get_data_from_json(raw_json_data):
     # getting data from json (type 2 of their A/B testing page)
-    #print(raw_json_data)
+    print(raw_json_data)
     if raw_json_data:
         cleaned_data = clean(raw_json_data).replace('<!--', "").replace("-->", "")
         #print(cleaned_data)
@@ -67,7 +67,7 @@ def get_data_from_json(raw_json_data):
         try:
             json_data = json.loads(cleaned_data)
             search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
-            #print(search_results)
+            print(search_results)
             for properties in search_results:
                 zpid = properties.get('zpid')
                 address = properties.get('address')
@@ -150,8 +150,10 @@ def parse(zipcode, filter=None):
 
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         webpage = urlopen(req).read()
+        print(webpage)
 
         parser = html.fromstring(webpage)
+        print(parser)
         search_results = parser.xpath("//div[@id='search-results']//article")
 
         if not search_results:
