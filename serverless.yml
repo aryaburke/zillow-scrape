@@ -40,14 +40,14 @@ functions:
       - http:
           path: hello
           method: get
-    timeout: 30
+    timeout: 15
   scrape:
     handler: handler.scrape
     events:
       - http:
           path: scrape
           method: get
-    timeout: 900
+    timeout: 15
 
 plugins:
   - serverless-python-requirements
