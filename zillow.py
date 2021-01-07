@@ -147,8 +147,7 @@ def parse(zipcode, filter=None):
         if not response:
             print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
             return None
-        h = { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36' }
-        req = Request(url, headers=h)
+        req = Request(url, headers=get_headers())
         #headers={'User-Agent': 'Mozilla/5.0'}
         webpage = urlopen(req).read()
         print(webpage)
