@@ -9,7 +9,13 @@ from decimal import *
 from zips import all_zips
 
 TEST_ZIPCODES = [
-    "99553"
+    "99553",
+    "10708",
+    "59701",
+    "07017",
+    "14450",
+    "98444",
+    "45342"
 ]
 
 def clean(text):
@@ -71,6 +77,7 @@ def get_data_from_json(raw_json_data):
             for properties in search_results:
                 zpid = properties.get('zpid')
                 address = properties.get('address')
+                street = properties.get('addressStreet')
                 property_info = properties.get('hdpData', {}).get('homeInfo')
                 city = property_info.get('city')
                 state = property_info.get('state')
@@ -95,6 +102,7 @@ def get_data_from_json(raw_json_data):
                     price_to_rent_ratio = Decimal(str(round(zestimate_rent / zestimate * 100, 2)))
 
                 data = {'zpid': zpid,
+                        'street': street,
                         'address': address,
                         'city': city,
                         'state': state,
@@ -106,7 +114,7 @@ def get_data_from_json(raw_json_data):
                         'bathrooms': bathrooms,
                         'bedrooms': bedrooms,
                         'area': area,
-                        'real estate provider': broker,
+                        'broker': broker,
                         'url': property_url,
                         'title': title,
                         'hasImage': hasImage,
@@ -140,10 +148,8 @@ def parse(zipcode, filter=None):
     while parsed_data != prev_parsed:
         #keeps track of previous parsed to check
         prev_parsed = parsed_data
-        #url = create_url(zipcode, filter, page)
-        url = 'https://us16.proxysite.com/process.php?d=9K8YGbhhjnawfDhDrLL61lw4SrxX%2Fsv0oVPhBsU%2B7fEY2kxZwa7JudbD%2Bg%3D%3D&b=1&f=norefer'
+        url = create_url(zipcode, filter, page)
         response = get_response(url)
-        print(response)
 
         if not response:
             print("Failed to fetch the page, please check `response.html` to see the response received from zillow.com.")
@@ -152,10 +158,8 @@ def parse(zipcode, filter=None):
         req = Request(url, headers=h)
         #headers={'User-Agent': 'Mozilla/5.0'}
         webpage = urlopen(req).read()
-        print(webpage)
 
         parser = html.fromstring(webpage)
-        print(parser)
         search_results = parser.xpath("//div[@id='search-results']//article")
 
         if not search_results:
@@ -258,4 +262,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    test()
