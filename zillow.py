@@ -6,7 +6,7 @@ import json
 from urllib.request import Request, urlopen
 import boto3
 from decimal import *
-from zips import all_zips
+from zips import all_zips, foil_zips
 
 TEST_ZIPCODES = [
     "99553",
@@ -17,6 +17,8 @@ TEST_ZIPCODES = [
     "98444",
     "45342"
 ]
+
+TABLENAME = 'properties'
 
 def clean(text):
     if text:
@@ -182,24 +184,24 @@ def parse(zipcode, filter=None):
 
 
 
-def table_exists(TableName, dbclient=None):
+def table_exists(tablename, dbclient=None):
     #returns True if the table TableName exists, False otherwise
     if not dbclient:
         dbclient = boto3.client('dynamodb')
     exists = True
     try:
-        dbclient.describe_table(TableName='properties')
+        dbclient.describe_table(TableName=tablename)
     except:
         exists = False
     return exists
 
-def create_properties_table(dynamodb=None):
-    #creates the properties table if it doesn't exist
+def create_table(tablename, dynamodb=None):
+    #creates the table if it doesn't exist
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb')
-    if not table_exists('properties'):
+    if not table_exists(tablename):
         table = dynamodb.create_table(
-            TableName='properties',
+            TableName=tablename,
             KeySchema=[
                 {
                     'AttributeName': 'zpid',
@@ -228,7 +230,7 @@ def create_properties_table(dynamodb=None):
         # Print out some data about the table.
         print("Table status:", table.table_status)
 
-def write_to_properties(zipcode, data, tablename='properties', dynamodb=None):
+def write_to_table(zipcode, data, tablename, dynamodb=None):
     #writes the parsed data to a table, defaults to properties
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb')
@@ -236,30 +238,38 @@ def write_to_properties(zipcode, data, tablename='properties', dynamodb=None):
     for row in data:
         table.put_item(Item=row)
 
-def searchwrite(zips, dynamodb=None, sort="Homes For You"):
-    #searches each zipcode in an array of zipcodes and writes it to the properties table
+def delete_table(tablename, dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb')
-    create_properties_table(dynamodb)
+    table = dynamodb.Table(tablename)
+    table.delete()
+
+
+def searchwrite(zips, tablename, dynamodb=None, sort="Homes For You"):
+    #searches each zipcode in an array of zipcodes and writes it to the table
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb')
+    #table is deleted and re-created as best way to empty it
+    delete_table(tablename=TABLENAME, dynamodb=dynamodb)
+    create_table(tablename=TABLENAME, dynamodb=dynamodb)
     for zipcode in zips:
         print ("Fetching data for %s" % (zipcode))
         scraped_data = parse(zipcode, sort)
-        #print(scraped_data)
         if scraped_data:
             print ("Writing data to output file")
-            write_to_properties(zipcode=zipcode, data=scraped_data, dynamodb=dynamodb)
+            write_to_table(zipcode=zipcode, data=scraped_data, tablename=TABLENAME, dynamodb=dynamodb)
             print("FINISHED {0}".format(zipcode))
 
 def test():
     zips = TEST_ZIPCODES
-    searchwrite(zips)
+    searchwrite(zips, TABLENAME)
     return "Success!"
 
 def main():
-    zips = all_zips()
-    searchwrite(zips)
+    zips = foil_zips()
+    searchwrite(zips, TABLENAME)
     return "Success!"
 
 
 if __name__ == "__main__":
-    test()
+    main()
