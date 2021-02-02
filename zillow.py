@@ -7,6 +7,8 @@ from urllib.request import Request, urlopen
 import boto3
 from decimal import *
 from zips import all_zips, foil_zips
+from credentials import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
+from time import sleep
 
 TEST_ZIPCODES = [
     "99553",
@@ -43,7 +45,6 @@ def create_url(zipcode, filter, page):
         url = "https://www.zillow.com/homes/for_sale/{0}/0_singlestory/pricea_sort/".format(zipcode)
     else:
         url = "https://www.zillow.com/homes/for_sale/{0}_rb/{1}_p/?fromHomePage=true&shouldFireSellPageImplicitClaimGA=false&fromHomePageTab=buy".format(zipcode, page)
-    print(url)
     return url
 
 def save_to_file(response):
@@ -55,8 +56,9 @@ def get_response(url):
     # Getting response from zillow.com
     for i in range(5):
         response = requests.get(url, headers=get_headers())
-        print("Status code received:", response.status_code)
+        #print("Status code received:", response.status_code)
         if response.status_code != 200:
+            print("Status code received:", response.status_code)
             # saving response to file for debugging purpose, commented out because AWS uses read-only filesystem
             # save_to_file(response)
             continue
@@ -67,7 +69,7 @@ def get_response(url):
 
 def get_data_from_json(raw_json_data):
     # getting data from json (type 2 of their A/B testing page)
-    print(raw_json_data)
+    #print(raw_json_data)
     if raw_json_data:
         cleaned_data = clean(raw_json_data).replace('<!--', "").replace("-->", "")
         #print(cleaned_data)
@@ -75,7 +77,7 @@ def get_data_from_json(raw_json_data):
         try:
             json_data = json.loads(cleaned_data)
             search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
-            print(search_results)
+            #print(search_results)
             for properties in search_results:
                 zpid = properties.get('zpid')
                 address = properties.get('address')
@@ -165,7 +167,7 @@ def parse(zipcode, filter=None):
         search_results = parser.xpath("//div[@id='search-results']//article")
 
         if not search_results:
-            print("Parsing from json data")
+            #print("Parsing from json data")
             # identified as type 2 page
             #! this is where there is no data found when deployed on serverless
             raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
@@ -182,12 +184,13 @@ def parse(zipcode, filter=None):
 #below functions written by arya for DynamoDDB
 
 
-
+def create_dynamodb():
+    return boto3.resource(service_name='dynamodb', region_name=AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 def table_exists(tablename, dbclient=None):
     #returns True if the table TableName exists, False otherwise
     if not dbclient:
-        dbclient = boto3.client('dynamodb')
+        dbclient = boto3.client(service_name='dynamodb', region_name=AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     exists = True
     try:
         dbclient.describe_table(TableName=tablename)
@@ -198,7 +201,7 @@ def table_exists(tablename, dbclient=None):
 def create_table(tablename, dynamodb=None):
     #creates the table if it doesn't exist
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb')
+        dynamodb = create_dynamodb()
     if not table_exists(tablename):
         table = dynamodb.create_table(
             TableName=tablename,
@@ -233,25 +236,28 @@ def create_table(tablename, dynamodb=None):
 def write_to_table(zipcode, data, tablename, dynamodb=None):
     #writes the parsed data to a table, defaults to properties
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb')
+        dynamodb = create_dynamodb()
     table = dynamodb.Table(tablename)
     for row in data:
         table.put_item(Item=row)
 
 def delete_table(tablename, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table(tablename)
-    table.delete()
+        dynamodb = create_dynamodb()
+    if table_exists(tablename):
+        table = dynamodb.Table(tablename)
+        table.delete()
 
 
 def searchwrite(zips, tablename, dynamodb=None, sort="Homes For You"):
     #searches each zipcode in an array of zipcodes and writes it to the table
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb')
+        dynamodb = create_dynamodb()
     #table is deleted and re-created as best way to empty it
     delete_table(tablename=TABLENAME, dynamodb=dynamodb)
     create_table(tablename=TABLENAME, dynamodb=dynamodb)
+    #gives table time to create
+    sleep(5)
     for zipcode in zips:
         print ("Fetching data for %s" % (zipcode))
         scraped_data = parse(zipcode, sort)

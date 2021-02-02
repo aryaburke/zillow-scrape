@@ -24,6 +24,7 @@ var/
 .installed.cfg
 *.egg
 node_modules
+credentials.py
 
 # Serverless directories
 .serverless
