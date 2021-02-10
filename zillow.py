@@ -175,6 +175,7 @@ def parse(zipcode, filter=None):
             #if parsed_data not in final_data:
             final_data.append(parsed_data)
         page += 1
+        sleep(60)
     # The result is array of array, flatten it
     flattened = [val for sublist in final_data for val in sublist]
     uniq = unique(flattened)
