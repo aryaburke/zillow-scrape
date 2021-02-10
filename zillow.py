@@ -260,7 +260,7 @@ def searchwrite(zips, tablename, dynamodb=None, sort="Homes For You"):
     delete_table(tablename=TABLENAME, dynamodb=dynamodb)
     create_table(tablename=TABLENAME, dynamodb=dynamodb)
     #gives table time to create
-    sleep(45)
+    sleep(60)
     for zipcode in zips:
         print ("Fetching data for %s" % (zipcode))
         scraped_data = parse(zipcode, sort)
