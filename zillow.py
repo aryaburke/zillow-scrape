@@ -239,7 +239,10 @@ def write_to_table(zipcode, data, tablename, dynamodb=None):
         dynamodb = create_dynamodb()
     table = dynamodb.Table(tablename)
     for row in data:
-        table.put_item(Item=row)
+        try:
+            table.put_item(Item=row)
+        except Exception as e:
+            raise e
 
 def delete_table(tablename, dynamodb=None):
     if not dynamodb:
@@ -257,7 +260,7 @@ def searchwrite(zips, tablename, dynamodb=None, sort="Homes For You"):
     delete_table(tablename=TABLENAME, dynamodb=dynamodb)
     create_table(tablename=TABLENAME, dynamodb=dynamodb)
     #gives table time to create
-    sleep(10)
+    sleep(45)
     for zipcode in zips:
         print ("Fetching data for %s" % (zipcode))
         scraped_data = parse(zipcode, sort)
