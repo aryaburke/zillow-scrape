@@ -76,7 +76,10 @@ def get_data_from_json(raw_json_data):
         properties_list = []
         try:
             json_data = json.loads(cleaned_data)
-            search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
+            if json_data.length > 0:
+                search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
+            else:
+                search_results = []
             #print(search_results)
             for properties in search_results:
                 zpid = properties.get('zpid')
@@ -174,6 +177,7 @@ def parse(zipcode, filter=None):
             parsed_data = get_data_from_json(raw_json_data)
             #if parsed_data not in final_data:
             final_data.append(parsed_data)
+            sleep(60)
         page += 1
         sleep(60)
     # The result is array of array, flatten it
