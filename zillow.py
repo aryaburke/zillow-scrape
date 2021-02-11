@@ -236,6 +236,8 @@ def create_table(tablename, dynamodb=None):
 
 def write_to_table(zipcode, data, tablename, dynamodb=None):
     #writes the parsed data to a table, defaults to properties
+    dynamodb = create_dynamodb()
+    
     if not dynamodb:
         dynamodb = create_dynamodb()
     table = dynamodb.Table(tablename)
