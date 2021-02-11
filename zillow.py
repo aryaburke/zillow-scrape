@@ -76,7 +76,7 @@ def get_data_from_json(raw_json_data):
         properties_list = []
         try:
             json_data = json.loads(cleaned_data)
-            if json_data:
+            if json_data and json_data is not None:
                 search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
             else:
                 search_results = []
@@ -241,7 +241,7 @@ def create_table(tablename, dynamodb=None):
 def write_to_table(zipcode, data, tablename, dynamodb=None):
     #writes the parsed data to a table, defaults to properties
     dynamodb = create_dynamodb()
-    
+    sleep(10)
     if not dynamodb:
         dynamodb = create_dynamodb()
     table = dynamodb.Table(tablename)
