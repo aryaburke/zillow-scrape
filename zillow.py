@@ -76,7 +76,7 @@ def get_data_from_json(raw_json_data):
         properties_list = []
         try:
             json_data = json.loads(cleaned_data)
-            if json_data.length > 0:
+            if json_data:
                 search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
             else:
                 search_results = []
