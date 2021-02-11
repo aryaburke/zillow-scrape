@@ -177,7 +177,6 @@ def parse(zipcode, filter=None):
             parsed_data = get_data_from_json(raw_json_data)
             #if parsed_data not in final_data:
             final_data.append(parsed_data)
-            sleep(60)
         page += 1
         sleep(60)
     # The result is array of array, flatten it
@@ -241,7 +240,7 @@ def create_table(tablename, dynamodb=None):
 def write_to_table(zipcode, data, tablename, dynamodb=None):
     #writes the parsed data to a table, defaults to properties
     dynamodb = create_dynamodb()
-    sleep(10)
+    sleep(60)
     if not dynamodb:
         dynamodb = create_dynamodb()
     table = dynamodb.Table(tablename)
