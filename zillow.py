@@ -303,6 +303,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    scraped_data = getDetailPage("https://www.zillow.com/homedetails/9447-W-Hillsborough-Ave-Tampa-FL-33615/2072851159_zpid/")
-    print(scraped_data)
+    main()
