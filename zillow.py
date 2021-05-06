@@ -1,5 +1,6 @@
 from lxml import html
 import requests
+import re
 import unicodecsv as csv
 import argparse
 import json
@@ -7,7 +8,7 @@ from urllib.request import Request, urlopen
 import boto3
 from decimal import *
 from zips import all_zips, foil_zips
-from credentials import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
+# from credentials import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
 from time import sleep
 
 TEST_ZIPCODES = [
@@ -67,6 +68,17 @@ def get_response(url):
             return response
     return None
 
+
+def getDetailPageImages(property_url):
+    r = get_response(property_url)
+    listImages = re.findall(r'\shttps:\/\/photos.zillowstatic.com\/fp\/(.*?)\-cc_', r.text, re.S)
+    listImages = set(listImages)
+    images = []
+    for x in listImages:
+        images.append("https://photos.zillowstatic.com/fp/{0}-cc_ft_960.jpg".format(x))
+    return json.dumps(images)
+
+
 def get_data_from_json(raw_json_data):
     # getting data from json (type 2 of their A/B testing page)
     #print(raw_json_data)
@@ -80,7 +92,7 @@ def get_data_from_json(raw_json_data):
                 search_results = json_data.get('cat1').get('searchResults').get('listResults', [])
             else:
                 search_results = []
-            #print(search_results)
+            # print(search_results)
             for properties in search_results:
                 zpid = properties.get('zpid')
                 address = properties.get('address')
@@ -99,6 +111,8 @@ def get_data_from_json(raw_json_data):
                 area = properties.get('area')
                 broker = properties.get('brokerName')
                 property_url = properties.get('detailUrl')
+                images = getDetailPageImages(property_url)
+
                 title = properties.get('statusText')
                 zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
                 price_to_rent_ratio = ""
@@ -125,7 +139,9 @@ def get_data_from_json(raw_json_data):
                         'url': property_url,
                         'title': title,
                         'hasImage': hasImage,
-                        'imgSrc': imgSrc}
+                        'imgSrc': imgSrc,
+                        'images': images
+                        }
                 properties_list.append(data)
 
             return properties_list
