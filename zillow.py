@@ -140,7 +140,7 @@ def get_data_from_json(raw_json_data):
                         'title': title,
                         'hasImage': hasImage,
                         'imgSrc': imgSrc,
-                        'images': images
+                        'defaultImages': images
                         }
                 properties_list.append(data)
 
