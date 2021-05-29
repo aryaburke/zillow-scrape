@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 import boto3
 from decimal import *
 from zips import all_zips, foil_zips
-# from credentials import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
+from credentials import AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY
 from time import sleep
 
 TEST_ZIPCODES = [
@@ -74,10 +74,10 @@ def getDetailPage(property_url):
     r = get_response(property_url)
 
     extraData = {
-        'lotAreaValue': False,
-        'lotAreaUnit': False,
-        'brokerName': False,
-        'images': False
+        'lotAreaValue': 0,
+        'lotAreaUnit': '',
+        'brokerName': '',
+        'images': []
     }
 
     detailProperty = re.findall(r'<script id=hdpApolloPreloadedData type="application\/json\"\>(.*?)\<\/script\>',
