@@ -1,3 +1,4 @@
+
 from lxml import html
 import requests
 import re
@@ -69,14 +70,26 @@ def get_response(url):
     return None
 
 
-def getDetailPageImages(property_url):
+def getDetailPage(property_url):
     r = get_response(property_url)
-    listImages = re.findall(r'\shttps:\/\/photos.zillowstatic.com\/fp\/(.*?)\-cc_', r.text, re.S)
-    listImages = set(listImages)
-    images = []
-    for x in listImages:
-        images.append("https://photos.zillowstatic.com/fp/{0}-cc_ft_960.jpg".format(x))
-    return json.dumps(images)
+
+    extraData = {
+        'lotAreaValue': False,
+        'lotAreaUnit': False,
+        'brokerName': False,
+        'images': False
+    }
+
+    detailProperty = re.findall(r'<script id=hdpApolloPreloadedData type="application\/json\"\>(.*?)\<\/script\>',
+                            r.text, re.S)
+    if len(detailProperty) > 0:
+        json_data = json.loads(detailProperty[0])
+        data1 = list(json.loads(json_data['apiCache']).values())
+        extraData['lotAreaValue'] = data1[0]["property"]["lotAreaValue"]
+        extraData['lotAreaUnit'] = data1[0]["property"]["lotAreaUnit"]
+        extraData['brokerName'] = data1[1]["property"]["attributionInfo"]["brokerName"]
+        extraData['images'] = data1[1]["property"]["responsivePhotos"]
+    return extraData
 
 
 def get_data_from_json(raw_json_data):
@@ -111,7 +124,7 @@ def get_data_from_json(raw_json_data):
                 area = properties.get('area')
                 broker = properties.get('brokerName')
                 property_url = properties.get('detailUrl')
-                images = getDetailPageImages(property_url)
+                detailPage = getDetailPage(property_url)
 
                 title = properties.get('statusText')
                 zestimate_rent = properties.get('hdpData').get('homeInfo').get('rentZestimate')
@@ -140,7 +153,10 @@ def get_data_from_json(raw_json_data):
                         'title': title,
                         'hasImage': hasImage,
                         'imgSrc': imgSrc,
-                        'defaultImages': images
+                        'defaultImages': json.dumps(detailPage['images']),
+                        'lotAreaValue': detailPage['lotAreaValue'],
+                        'lotAreaUnit': detailPage['lotAreaUnit'],
+                        'brokerName': detailPage['brokerName']
                         }
                 properties_list.append(data)
 
@@ -189,7 +205,9 @@ def parse(zipcode, filter=None):
             #print("Parsing from json data")
             # identified as type 2 page
             #! this is where there is no data found when deployed on serverless
+
             raw_json_data = parser.xpath('//script[@data-zrr-shared-data-key="mobileSearchPageStore"]//text()')
+            #<script id=hdpApolloPreloadedData type="application/json">
             parsed_data = get_data_from_json(raw_json_data)
             #if parsed_data not in final_data:
             final_data.append(parsed_data)
